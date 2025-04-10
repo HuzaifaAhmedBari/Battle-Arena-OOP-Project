@@ -39,9 +39,6 @@ int main()
                 {
                     window.close();
                 }
-                window.clear(sf::Color::Black);
-                window.draw(rect);
-                window.display();
             }
         }
 
