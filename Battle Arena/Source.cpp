@@ -13,7 +13,6 @@ int main()
 
         while (const std::optional event = window.pollEvent())
         {
-
             if (event->is<sf::Event::Closed>())
                 window.close();
             else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
