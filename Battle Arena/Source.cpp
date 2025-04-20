@@ -7,12 +7,14 @@
 #include <SFML/Window/Event.hpp>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode({ 1200, 800 }), "ImGui + SFML = <3");
+    sf::RenderWindow window(sf::VideoMode({ 1200, 800 }), "ImGui + SFML");
     window.setFramerateLimit(60);
     ImGui::SFML::Init(window);
 
-    sf::CircleShape shape(100.f);
+    float circleRadius = 100.f;
+    sf::CircleShape shape(circleRadius);
     shape.setFillColor(sf::Color::Green);
+    shape.setPosition({ 50,50 });
 
     sf::Clock deltaClock;
     while (window.isOpen()) {
@@ -47,16 +49,20 @@ int main() {
             }
         }
 
+        bool CircleExists;
         ImGui::SFML::Update(window, deltaClock.restart());
 
         ImGui::ShowDemoWindow();
 
-        ImGui::Begin("Hello");
-        ImGui::Button("Look at this pretty button");
+        ImGui::Begin("Modify Circle");
+        ImGui::Checkbox("Circle",&CircleExists);
+        ImGui::SliderFloat("Circle Radius",&circleRadius,50.f,250.f);
         ImGui::End();
 
-        window.clear();
-        window.draw(shape);
+        shape.setRadius(circleRadius);
+        window.clear({140U,73U,10U},100U);
+        if(CircleExists)
+            window.draw(shape);
         ImGui::SFML::Render(window);
         window.display();
     }
