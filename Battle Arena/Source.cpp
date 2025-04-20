@@ -1,6 +1,7 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 
+#include <iostream>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
@@ -9,7 +10,11 @@
 int main() {
     sf::RenderWindow window(sf::VideoMode({ 1200, 800 }), "ImGui + SFML");
     window.setFramerateLimit(60);
-    ImGui::SFML::Init(window);
+    if (!ImGui::SFML::Init(window))
+    {
+        std::cout << "Unexpected Error In Creating Window";
+        return 0;
+    }
 
     float circleRadius = 100.f;
     sf::CircleShape shape(circleRadius);
@@ -55,7 +60,7 @@ int main() {
         ImGui::ShowDemoWindow();
 
         ImGui::Begin("Modify Circle");
-        ImGui::Checkbox("Circle",&CircleExists);
+        ImGui::Checkbox("Toggle Circle",&CircleExists);
         ImGui::SliderFloat("Circle Radius",&circleRadius,50.f,250.f);
         ImGui::End();
 
