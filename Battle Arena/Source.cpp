@@ -22,13 +22,36 @@ int main() {
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+            {
+                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
+                {
+                    window.close();
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::Up)
+                {
+                    shape.move({ 0,-10 });
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::Down)
+                {
+                    shape.move({ 0,10 });
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::Right)
+                {
+                    shape.move({ 10,0 });
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::Left)
+                {
+                    shape.move({ -10,0 });
+                }
+            }
         }
 
         ImGui::SFML::Update(window, deltaClock.restart());
 
         ImGui::ShowDemoWindow();
 
-        ImGui::Begin("Hello, world!");
+        ImGui::Begin("Hello");
         ImGui::Button("Look at this pretty button");
         ImGui::End();
 
