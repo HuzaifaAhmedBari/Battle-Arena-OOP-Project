@@ -1,52 +1,42 @@
-#include <SFML/Graphics.hpp>
+#include "imgui.h"
+#include "imgui-SFML.h"
 
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "My window");
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/Window/Event.hpp>
 
-    sf::RectangleShape rect({ 400,200 });
-    rect.setFillColor(sf::Color::Blue);
-    rect.setPosition({200,100});
+int main() {
+    sf::RenderWindow window(sf::VideoMode({ 1200, 800 }), "ImGui + SFML = <3");
+    window.setFramerateLimit(60);
+    ImGui::SFML::Init(window);
 
-    while (window.isOpen())
-    {
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
 
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-            {
+    sf::Clock deltaClock;
+    while (window.isOpen()) {
+        while (const auto event = window.pollEvent()) {
+            ImGui::SFML::ProcessEvent(window, *event);
+
+            if (event->is<sf::Event::Closed>()) {
                 window.close();
-            }
-            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
-            {
-                if (keyPressed->scancode == sf::Keyboard::Scancode::Down)
-                {
-                    rect.move({ 0,10 });
-                }
-                else if (keyPressed->scancode == sf::Keyboard::Scancode::Up)
-                {
-                    rect.move({ 0,-10 });
-                }
-                else if (keyPressed->scancode == sf::Keyboard::Scancode::Left)
-                {
-                    rect.move({ -10,0 });
-                }
-                else if(keyPressed->scancode == sf::Keyboard::Scancode::Right)
-                {
-                    rect.move({ 10,0 });
-                }
-                else if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
-                {
-                    window.close();
-                }
             }
         }
 
+        ImGui::SFML::Update(window, deltaClock.restart());
 
-        window.clear(sf::Color::Black);
+        ImGui::ShowDemoWindow();
 
-        window.draw(rect);
+        ImGui::Begin("Hello, world!");
+        ImGui::Button("Look at this pretty button");
+        ImGui::End();
 
+        window.clear();
+        window.draw(shape);
+        ImGui::SFML::Render(window);
         window.display();
     }
+
+    ImGui::SFML::Shutdown();
 }
