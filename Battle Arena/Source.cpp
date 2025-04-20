@@ -2,10 +2,9 @@
 #include "imgui-SFML.h"
 
 #include <iostream>
-#include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/System/Clock.hpp>
-#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
 
 int main() {
     sf::RenderWindow window(sf::VideoMode({ 1200, 800 }), "ImGui + SFML");
