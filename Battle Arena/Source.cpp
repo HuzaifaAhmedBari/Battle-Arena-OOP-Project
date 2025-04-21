@@ -15,6 +15,8 @@ int main() {
         return 0;
     }
 
+    sf::RectangleShape rect({ 200.f,100.5 });
+    rect.setPosition({ 350,300 });
     float circleRadius = 100.f;
     sf::CircleShape shape(circleRadius);
     shape.setFillColor(sf::Color::Green);
@@ -52,23 +54,39 @@ int main() {
                 }
             }
         }
+        sf::Vector2f circleposition = shape.getPosition();
+        sf::Vector2f rectangelpostion = rect.getScale();
+        if (shape.getGlobalBounds().findIntersection(rect.getGlobalBounds()))
+        {
+            ImGui::SFML::Update(window, deltaClock.restart());
+            window.clear({ 140U,73U,10U }, 100U);
+            ImGui::TextColored({ 140U,73U,100U,100U }, "Game Over!!");
+            ImGui::SFML::Render(window);
+            window.display();
+            sf::sleep(sf::milliseconds(400));
+            window.close();
+        }
+        else
+        {
 
-        bool CircleExists;
-        ImGui::SFML::Update(window, deltaClock.restart());
+            bool CircleExists;
+            ImGui::SFML::Update(window, deltaClock.restart());
 
-        ImGui::ShowDemoWindow();
+            ImGui::ShowDemoWindow();
 
-        ImGui::Begin("Modify Circle");
-        ImGui::Checkbox("Toggle Circle",&CircleExists);
-        ImGui::SliderFloat("Circle Radius",&circleRadius,50.f,250.f);
-        ImGui::End();
+            ImGui::Begin("Modify Circle");
+            ImGui::Checkbox("Toggle Circle", &CircleExists);
+            ImGui::SliderFloat("Circle Radius", &circleRadius, 50.f, 250.f);
+            ImGui::End();
 
-        shape.setRadius(circleRadius);
-        window.clear({140U,73U,10U},100U);
-        if(CircleExists)
-            window.draw(shape);
-        ImGui::SFML::Render(window);
-        window.display();
+            shape.setRadius(circleRadius);
+            window.clear({ 140U,73U,10U }, 100U);
+            if (CircleExists)
+                window.draw(shape);
+            window.draw(rect);
+            ImGui::SFML::Render(window);
+            window.display();
+        }
     }
 
     ImGui::SFML::Shutdown();
