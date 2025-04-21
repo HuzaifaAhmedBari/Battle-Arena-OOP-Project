@@ -11,5 +11,7 @@ class Warrior : public Character {
 	public:
 		Warrior(std::string name, float health = 0.f, float damage = 0.f) : Character(name,damage,health) {}
 		void attack(Character &opponent);
+		void healing();
+		void movecharacter();
 };
 

@@ -6,3 +6,11 @@ using namespace std;
 void Mage::attack(Character& opponent) {
 
 }
+
+void Mage::healing() {
+
+}
+
+void Mage::movecharacter() {
+
+}
