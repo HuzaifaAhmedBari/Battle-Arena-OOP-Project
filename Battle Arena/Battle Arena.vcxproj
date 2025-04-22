@@ -150,12 +150,12 @@
     <ClCompile Include="Player_Character.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Warrior.cpp" />
-	<ClCompile Include="imgui\imgui.cpp" />
-	<ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
-	<ClCompile Include="imgui\imgui_tables.cpp" />
-	<ClCompile Include="imgui\imgui_widgets.cpp" />
-	<ClCompile Include="imgui-sfml\imgui-SFML.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="imgui-sfml\imgui-SFML.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Archer.hpp" />
