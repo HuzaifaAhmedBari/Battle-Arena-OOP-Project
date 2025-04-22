@@ -3,12 +3,12 @@
 #include <iostream>
 using namespace std;
 
-string Character::getname() const {
+string Character::getname() {
 	return name;
 }
-float Character::getdamage() const {
+float Character::getdamage() {
 	return damage;
 }
-float Character::gethealth() const {
+float Character::gethealth() {
 	return health;
 }

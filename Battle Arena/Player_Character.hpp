@@ -14,9 +14,9 @@ class Character {
 		virtual void attack(Character& opponent) = 0;
 		virtual void movecharacter() = 0;
 		virtual void healing() = 0;
-		string getname() const;
-		float gethealth() const;
-		float getdamage() const;
+		std::string getname();
+		float gethealth();
+		float getdamage();
 		virtual ~Character() {}
 };
 #endif
