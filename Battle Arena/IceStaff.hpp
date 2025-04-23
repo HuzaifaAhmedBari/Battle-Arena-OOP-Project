@@ -8,8 +8,10 @@ class IceStaff : public Weapon {
 	public:
 		IceStaff() {}
 		IceStaff(string name, float range, float damage) : Weapon(name,range,damage) {}
-
-
+		
+		void displayStats() const override;
+		void useSpecialMove(Character* target) override;
+		
 		~IceStaff() {}
 };
 
