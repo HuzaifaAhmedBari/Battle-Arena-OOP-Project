@@ -46,12 +46,15 @@ void Game::run() {
             style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.3f);
             style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.5f);
 
-            ImGui::SetNextWindowPos(ImVec2((window.getSize().x - 600) / 2, (window.getSize().y + 320) / 2));
-            ImGui::SetNextWindowSize(ImVec2(550, 200));
+            float buttonWidth = window.getSize().x * 0.308f;
+            float buttonHeight = window.getSize().y * 0.18f;
+            ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.468f - buttonWidth / 2, window.getSize().y * 0.77f - buttonHeight / 2));
+            ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
+
 
             ImGui::Begin("START", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
 
-            if (ImGui::Button(" ", { 500,160 }))
+            if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
             {
                 currentstate = Select;
             }
