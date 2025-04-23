@@ -6,23 +6,41 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 
+using namespace std;
+using namespace sf;
+
+enum GameState {
+    Start,
+    Select
+};
+
 int main() {
-    sf::RenderWindow window(sf::VideoMode({ 1200, 800 }), "ImGui + SFML"); 
+    RenderWindow window(sf::VideoMode({ 1600, 900 }), "BATTLE ARENA"); 
     window.setFramerateLimit(60);
+
     if (!ImGui::SFML::Init(window))
     {
         std::cout << "Unexpected Error In Creating Window";
         return 0;
     }
 
-    sf::RectangleShape rect({ 200.f,100.5 });
-    rect.setPosition({ 350,300 });
-    float circleRadius = 100.f;
-    sf::CircleShape shape(circleRadius);
-    shape.setFillColor(sf::Color::Green);
-    shape.setPosition({ 50,50 });
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->Fonts[0]->Scale = 3.0f;
 
-    sf::Clock deltaClock;
+    Texture texture;
+    if (!texture.loadFromFile("StartBackground.png"))
+    {
+        cout << "Error Loading the Background" << endl;
+    }
+    Sprite sprite(texture);
+    float scaleX = 1600.f / texture.getSize().x;
+    float scaleY = 900.f / texture.getSize().y;
+    sprite.setScale({ scaleX, scaleY });
+
+    GameState currentstate = GameState::Start;
+
+    Clock deltaClock;
     while (window.isOpen()) {
         while (const auto event = window.pollEvent()) {
             ImGui::SFML::ProcessEvent(window, *event);
@@ -30,63 +48,41 @@ int main() {
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
-            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
-            {
-                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
-                {
-                    window.close();
-                }
-                else if (keyPressed->scancode == sf::Keyboard::Scancode::Up)
-                {
-                    shape.move({ 0,-10 });
-                }
-                else if (keyPressed->scancode == sf::Keyboard::Scancode::Down)
-                {
-                    shape.move({ 0,10 });
-                }
-                else if (keyPressed->scancode == sf::Keyboard::Scancode::Right)
-                {
-                    shape.move({ 10,0 });
-                }
-                else if (keyPressed->scancode == sf::Keyboard::Scancode::Left)
-                {
-                    shape.move({ -10,0 });
-                }
-            }
         }
-        sf::Vector2f circleposition = shape.getPosition();
-        sf::Vector2f rectangelpostion = rect.getScale();
-        if (shape.getGlobalBounds().findIntersection(rect.getGlobalBounds()))
+
+        ImGui::SFML::Update(window, deltaClock.restart());
+        window.clear();
+
+        if (currentstate == Start)
         {
-            ImGui::SFML::Update(window, deltaClock.restart());
-            window.clear({ 140U,73U,10U }, 100U);
-            ImGui::TextColored({ 140U,73U,100U,100U }, "Game Over!!");
-            ImGui::SFML::Render(window);
-            window.display();
-            sf::sleep(sf::milliseconds(400));
+            window.draw(sprite);
+
+            ImGuiStyle& style = ImGui::GetStyle();
+            style.FrameRounding = 30.0f;
+            style.FramePadding = ImVec2(15, 10);
+            style.Colors[ImGuiCol_Button] = ImVec4(0.55f, 0.27f, 0.07f, 1.0f);
+            style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.65f, 0.33f, 0.10f, 1.0f);
+            style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.45f, 0.22f, 0.05f, 1.0f);
+
+            ImGui::SetNextWindowPos(ImVec2((window.getSize().x - 350) / 2, (window.getSize().y + 350) / 2));
+            ImGui::SetNextWindowSize(ImVec2(450, 350));
+
+            ImGui::Begin("START", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+
+            if (ImGui::Button("START", { 300,100 }))
+            {
+                currentstate = Select;
+            }
+
+            ImGui::End();
+        }
+        else if (currentstate == Select)
+        {
             window.close();
         }
-        else
-        {
 
-            bool CircleExists;
-            ImGui::SFML::Update(window, deltaClock.restart());
-
-            ImGui::ShowDemoWindow();
-
-            ImGui::Begin("Modify Circle");
-            ImGui::Checkbox("Toggle Circle", &CircleExists);
-            ImGui::SliderFloat("Circle Radius", &circleRadius, 50.f, 250.f);
-            ImGui::End();
-
-            shape.setRadius(circleRadius);
-            window.clear({ 140U,73U,10U }, 100U);
-            if (CircleExists)
-                window.draw(shape);
-            window.draw(rect);
-            ImGui::SFML::Render(window);
-            window.display();
-        }
+        ImGui::SFML::Render(window);
+        window.display();
     }
 
     ImGui::SFML::Shutdown();
