@@ -180,7 +180,7 @@
     <ClInclude Include="Weapon.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Downloads\StartBackground.png" />
+    <Image Include="StartBackground.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

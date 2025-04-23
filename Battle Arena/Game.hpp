@@ -16,13 +16,17 @@ using namespace sf;
 
 enum GameState {
     Start,
-    Select
+    SelectCharacter,
+    SelectWeapon
 };
 
 class Game
 {
     public:
         void run();
+        void start_screen(RenderWindow &window,GameState &currentstate, Sprite &BackGround_sprite);
+        void select_character_screen();
+        void select_weapon_screen();
 };
 
 #endif
