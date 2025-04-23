@@ -146,9 +146,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Archer.cpp" />
+    <ClCompile Include="Bow.cpp" />
     <ClCompile Include="Mage.cpp" />
     <ClCompile Include="Player_Character.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Staff.cpp" />
+    <ClCompile Include="Sword.cpp" />
     <ClCompile Include="Warrior.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -156,12 +159,17 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="imgui-sfml\imgui-SFML.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Archer.hpp" />
+    <ClInclude Include="Bow.hpp" />
     <ClInclude Include="Mage.hpp" />
     <ClInclude Include="Player_Character.hpp" />
+    <ClInclude Include="Staff.hpp" />
+    <ClInclude Include="Sword.hpp" />
     <ClInclude Include="Warrior.hpp" />
+    <ClInclude Include="Weapon.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
