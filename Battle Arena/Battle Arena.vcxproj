@@ -146,11 +146,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Archer.cpp" />
-    <ClCompile Include="Bow.cpp" />
+    <ClCompile Include="Axe.cpp" />
+    <ClCompile Include="FireStaff.cpp" />
+    <ClCompile Include="LongBow.cpp" />
     <ClCompile Include="Mage.cpp" />
     <ClCompile Include="Player_Character.cpp" />
+    <ClCompile Include="ShortBow.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="Staff.cpp" />
+    <ClCompile Include="IceStaff.cpp" />
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="Warrior.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -163,10 +166,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Archer.hpp" />
-    <ClInclude Include="Bow.hpp" />
+    <ClInclude Include="Axe.hpp" />
+    <ClInclude Include="FireStaff.hpp" />
+    <ClInclude Include="LongBow.hpp" />
     <ClInclude Include="Mage.hpp" />
     <ClInclude Include="Player_Character.hpp" />
-    <ClInclude Include="Staff.hpp" />
+    <ClInclude Include="IceStaff.hpp" />
+    <ClInclude Include="ShortBow.hpp" />
     <ClInclude Include="Sword.hpp" />
     <ClInclude Include="Warrior.hpp" />
     <ClInclude Include="Weapon.hpp" />

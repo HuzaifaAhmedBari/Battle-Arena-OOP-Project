@@ -55,13 +55,22 @@
     <ClCompile Include="Weapon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bow.cpp">
+    <ClCompile Include="LongBow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sword.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Staff.cpp">
+    <ClCompile Include="IceStaff.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FireStaff.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShortBow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,13 +90,22 @@
     <ClInclude Include="Weapon.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bow.hpp">
+    <ClInclude Include="LongBow.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Sword.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Staff.hpp">
+    <ClInclude Include="IceStaff.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FireStaff.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Axe.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShortBow.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
