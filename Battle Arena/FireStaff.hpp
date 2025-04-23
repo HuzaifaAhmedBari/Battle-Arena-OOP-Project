@@ -9,6 +9,8 @@ class FireStaff : public Weapon {
 		FireStaff() {}
 		FireStaff(string name, float range, float damage) : Weapon(name, range, damage) {}
 
+		void displayStats() const override;
+		void useSpecialMove(Character* target) override;
 
 		~FireStaff() {}
 };
