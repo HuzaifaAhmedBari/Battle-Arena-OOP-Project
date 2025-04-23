@@ -148,6 +148,7 @@
     <ClCompile Include="Archer.cpp" />
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="FireStaff.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="LongBow.cpp" />
     <ClCompile Include="Mage.cpp" />
     <ClCompile Include="Player_Character.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Archer.hpp" />
     <ClInclude Include="Axe.hpp" />
     <ClInclude Include="FireStaff.hpp" />
+    <ClInclude Include="Game.hpp" />
     <ClInclude Include="LongBow.hpp" />
     <ClInclude Include="Mage.hpp" />
     <ClInclude Include="Player_Character.hpp" />
