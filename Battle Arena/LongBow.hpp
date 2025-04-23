@@ -9,6 +9,8 @@ class LongBow : public Weapon {
 		LongBow() {}
 		LongBow(string name, float range, float damage) : Weapon(name,range,damage) {}
 
+		void displayStats() const override;
+		void useSpecialMove(Character* target) override;
 
 		~LongBow() {}
 };
