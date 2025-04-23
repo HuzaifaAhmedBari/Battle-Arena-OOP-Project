@@ -3,7 +3,7 @@
 bool Character::isAlive() const {
 	return health > 0;
 }
-void Character::displayStats() const {
+void Character::displayStats() const { 
 	cout << "Name: " << name << endl;
 	cout << "Health: " << health << endl;
 	cout << "Damage: " << damage << endl;
