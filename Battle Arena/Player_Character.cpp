@@ -9,7 +9,7 @@ void Character::displayStats() const {
 	cout << "Damage: " << damage << endl;
 }
 
-string Character::getname() {
+string Character::getname() const {
 	return name;
 }
 float Character::getdamage() const {
