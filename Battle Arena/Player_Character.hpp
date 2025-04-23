@@ -19,7 +19,7 @@ class Character {
 		Weapon* weapon2 = nullptr;
 		Weapon* currentWeapon = nullptr;
 	public:
-		Character(string n, float health = 0.f, float damage = 0.f, string type, Weapon* weapon1): name(n), health(health), damage(damage), type(type), weapon1(weapon1), weapon2(nullptr), currentWeapon(weapon1) {}
+		Character(string n, float health, float damage, string type, Weapon* weapon1): name(n), health(health), damage(damage), type(type), weapon1(weapon1), weapon2(nullptr), currentWeapon(weapon1) {}
 		
 		virtual void attack(Character& opponent) = 0;
 		virtual void takeDamage(float damage) = 0;

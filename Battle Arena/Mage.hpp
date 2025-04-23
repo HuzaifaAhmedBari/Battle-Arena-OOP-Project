@@ -9,7 +9,7 @@ class Mage : public Character {
 	protected:
 
 	public:
-		Mage(std::string name, float health = 0.f, float damage = 0.f, std::string type) : Character(name, damage, health, type, new FireStaff()) {}
+		Mage(string name, float health, float damage, string type) : Character(name, damage, health, type, new FireStaff()) {}
 		
 		void attack(Character& opponent);
 		void healing();

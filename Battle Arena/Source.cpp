@@ -24,10 +24,6 @@ int main() {
         return 0;
     }
 
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    io.Fonts->Fonts[0]->Scale = 3.0f;
-
     Texture texture;
     if (!texture.loadFromFile("StartBackground.png"))
     {
@@ -60,16 +56,16 @@ int main() {
             ImGuiStyle& style = ImGui::GetStyle();
             style.FrameRounding = 30.0f;
             style.FramePadding = ImVec2(15, 10);
-            style.Colors[ImGuiCol_Button] = ImVec4(0.55f, 0.27f, 0.07f, 1.0f);
-            style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.65f, 0.33f, 0.10f, 1.0f);
-            style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.45f, 0.22f, 0.05f, 1.0f);
+            style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
+            style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.3f);
+            style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.5f);
 
-            ImGui::SetNextWindowPos(ImVec2((window.getSize().x - 350) / 2, (window.getSize().y + 350) / 2));
-            ImGui::SetNextWindowSize(ImVec2(450, 350));
+            ImGui::SetNextWindowPos(ImVec2((window.getSize().x - 600) / 2, (window.getSize().y + 320) / 2));
+            ImGui::SetNextWindowSize(ImVec2(550, 200));
 
             ImGui::Begin("START", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
 
-            if (ImGui::Button("START", { 300,100 }))
+            if (ImGui::Button(" ", { 500,160 }))
             {
                 currentstate = Select;
             }

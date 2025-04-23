@@ -9,7 +9,7 @@ class Archer : public Character {
 	protected:
 
 	public:
-		Archer(string name, float health = 0.f, float damage = 0.f, string Type, Weapon* weapon2 = nullptr): Character(name, health, damage, Type, new LongBow()) {
+		Archer(string name, float health, float damage, string Type, Weapon* weapon2 = nullptr): Character(name, health, damage, Type, new LongBow()) {
 			this->weapon2 = weapon2;
 		}
 		
