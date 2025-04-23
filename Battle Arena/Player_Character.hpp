@@ -24,7 +24,7 @@ class Character {
 		string getname() const;
 		float gethealth() const;
 		float getdamage() const;
-		
+  
 		virtual ~Character() {}
 };
 #endif
