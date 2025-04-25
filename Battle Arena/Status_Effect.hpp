@@ -1,19 +1,23 @@
 #pragma once
 
-#ifndef STATUS_EFFECT_HPP
-#define STATUS_EFFECT_HPP
+#include <string>
 
-#include <iostream>
-using namespace std;
-
-class Status_Effect {
-	protected:
-
-	public:
-		Status_Effect() {}
-
-
-		~Status_Effect() {}
+enum class StatusEffect {
+    None,
+    Burn,
+    Frozen,
+    Vulnerable,
+    Poison,
+    Confused
 };
 
-#endif
+inline std::string statusToString(StatusEffect effect) {
+    switch (effect) {
+        case StatusEffect::Burn: return "Burn";
+        case StatusEffect::Frozen: return "Frozen";
+        case StatusEffect::Vulnerable: return "Vulnerable";
+        case StatusEffect::Poison: return "Poison";
+        case StatusEffect::Confused: return "Confused";
+        default: return "None";
+    }
+}

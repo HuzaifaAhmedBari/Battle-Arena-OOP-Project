@@ -18,6 +18,7 @@ class Archer : public Character {
 		void healing();
 		void movecharacter();
 
+
 		~Archer() override = default;
 };
 

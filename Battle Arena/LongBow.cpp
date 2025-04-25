@@ -1,4 +1,5 @@
 #include "LongBow.hpp"
+#include "Player_Character.hpp"
 
 
 
@@ -12,12 +13,7 @@ void LongBow::useSpecialMove(Character* target) {
         std::cout << "Special move unavailable or no uses left.\n";
         return;
     }
-    
-    std::cout << name << " uses its special power!\n";
-    // ... apply effect ...
+    std::cout << name << " shoots a piercing arrow through obstacles!\n";
+    target->takeDamage(damage * 1.2f);
     reduceSpecialUse();
-    // cout << "Using Piercing Arrow on " << target->getname() << "!" << endl;
-    // Implement the logic for the special move here
-    // For example, you could deal damage to the target
-    // target->takeDamage(damage * 2); // Example: double damage for special move
 }

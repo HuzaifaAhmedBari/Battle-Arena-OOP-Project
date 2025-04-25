@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include "Weapon.hpp"
+#include "Status_Effect.hpp"
 
 using namespace std;
 
@@ -19,6 +20,9 @@ class Character {
 		Weapon* weapon2 = nullptr;
 		Weapon* currentWeapon = nullptr;
 		int healsUsed = 0;
+		StatusEffect status = StatusEffect::None;
+		int statusDuration = 0;
+
 
 	public:
 		Character(string n, float health, float damage, string type, Weapon* weapon1): name(n), health(health), damage(damage), type(type), weapon1(weapon1), weapon2(nullptr), currentWeapon(weapon1) {}
@@ -40,6 +44,8 @@ class Character {
 		bool isAlive() const;
 		void useWeapon1SpecialMove(Character* target);
 		void useWeapon2SpecialMove(Character* target);
+		void applyStatus(StatusEffect effect, int duration);
+		void updateStatus();
 		void sethealth(float health);
 		string getType() const;
 		string getname() const;

@@ -144,6 +144,37 @@ void Character::useWeapon2SpecialMove(Character* target) {
 
     weapon2->useSpecialMove(target);
 }
+void Character::applyStatus(StatusEffect effect, int duration) {
+    status = effect;
+    statusDuration = duration;
+    std::cout << name << " is now affected by " << statusToString(status) << " for " << duration << " turns!\n";
+}
+
+void Character::updateStatus() {
+    if (statusDuration > 0) {
+        if (status == StatusEffect::Burn) {
+            std::cout << name << " takes 5 burn damage!\n";
+            health -= 5;
+        } else if (status == StatusEffect::Frozen) {
+            std::cout << name << " is frozen and cannot move!\n";
+        } else if (status == StatusEffect::Vulnerable) {
+            std::cout << name << " is vulnerable to damage!\n";
+        } else if (status == StatusEffect::Poison) {
+            std::cout << name << " takes 3 poison damage!\n";
+            health -= 3;
+        } else if (status == StatusEffect::Confused) {
+            std::cout << name << " is confused and may attack itself!\n";
+        } else if (status == StatusEffect::None) {
+            std::cout << name << " is not affected by any status effects.\n";
+        }
+
+        statusDuration--;
+        if (statusDuration == 0) {
+            std::cout << name << " is no longer affected by " << statusToString(status) << ".\n";
+            status = StatusEffect::None;
+        }
+    }
+}
 
 void Character::sethealth(float health) {
     this->health = health;

@@ -1,4 +1,6 @@
 #include "IceStaff.hpp"
+#include "Status_Effect.hpp"
+#include "Player_Character.hpp"
 
 
 
@@ -13,11 +15,7 @@ void IceStaff::useSpecialMove(Character* target) {
         return;
     }
     
-    std::cout << name << " uses its special power!\n";
-    // ... apply effect ...
+    std::cout << name << " impales 3 enemies with ice and makes them vulnerable!\n";
+    target->applyStatus(StatusEffect::Vulnerable, 2);
     reduceSpecialUse();
-    // cout << "Using Frostbite on " << target->getname() << "!" << endl;
-    // Implement the logic for the special move here
-    // For example, you could deal damage to the target
-    // target->takeDamage(damage * 2); // Example: double damage for special move
 }

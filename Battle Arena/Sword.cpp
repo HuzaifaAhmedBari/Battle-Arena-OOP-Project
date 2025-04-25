@@ -1,4 +1,5 @@
 #include "Sword.hpp"
+#include "Player_Character.hpp"
 
 
 
@@ -12,12 +13,7 @@ void Sword::useSpecialMove(Character* target) {
         std::cout << "Special move unavailable or no uses left.\n";
         return;
     }
-    
-    std::cout << name << " uses its special power!\n";
-    // ... apply effect ...
+    std::cout << name << " charges forward, slashing 3 tiles ahead!\n";
+    target->takeDamage(damage * 1.1f);
     reduceSpecialUse();
-    // cout << "Using Sword Slash on " << target->getname() << "!" << endl;
-    // Implement the logic for the special move here
-    // For example, you could deal damage to the target
-    // target->takeDamage(damage * 2); // Example: double damage for special move
 }
