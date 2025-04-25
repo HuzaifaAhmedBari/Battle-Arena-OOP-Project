@@ -147,8 +147,11 @@
   <ItemGroup>
     <ClCompile Include="Archer.cpp" />
     <ClCompile Include="Axe.cpp" />
+    <ClCompile Include="Berserker.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FireStaff.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="LongBow.cpp" />
     <ClCompile Include="Mage.cpp" />
     <ClCompile Include="Player_Character.cpp" />
@@ -164,12 +167,16 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="imgui-sfml\imgui-SFML.cpp" />
     <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="Witch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Archer.hpp" />
     <ClInclude Include="Axe.hpp" />
+    <ClInclude Include="Berserker.hpp" />
+    <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="FireStaff.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Goblin.hpp" />
     <ClInclude Include="LongBow.hpp" />
     <ClInclude Include="Mage.hpp" />
     <ClInclude Include="Player_Character.hpp" />
@@ -178,6 +185,7 @@
     <ClInclude Include="Sword.hpp" />
     <ClInclude Include="Warrior.hpp" />
     <ClInclude Include="Weapon.hpp" />
+    <ClInclude Include="Witch.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="StartBackground.png" />
