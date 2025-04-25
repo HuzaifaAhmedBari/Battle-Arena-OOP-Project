@@ -8,7 +8,7 @@ void Game::run() {
 
     if (!ImGui::SFML::Init(window))
     {
-        std::cout << "Unexpected Error In Creating Window";
+        cout << "Unexpected Error In Creating Window";
         return;
     }
 
