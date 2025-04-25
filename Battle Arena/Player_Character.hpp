@@ -36,6 +36,8 @@ class Character {
 		void displayWeaponOptions() const;
 		void displayStats() const;
 		bool isAlive() const;
+		void useWeapon1SpecialMove(Character* target);
+		void useWeapon2SpecialMove(Character* target);
 		void sethealth(float health);
 		string getType() const;
 		string getname() const;
