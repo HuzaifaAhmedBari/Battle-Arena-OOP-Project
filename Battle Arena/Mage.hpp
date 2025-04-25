@@ -11,7 +11,9 @@ class Mage : public Character {
 	public:
 		Mage(string name, float health, float damage, string type) : Character(name, damage, health, type, new FireStaff()) {}
 		
+
 		void attack(Character& opponent);
+		void attackWithSpecialMove(Character& opponent);
 		void healing();
 		void movecharacter();
 

@@ -14,6 +14,7 @@ class Archer : public Character {
 		}
 		
 		void attack(Character& opponent);
+		void attackWithSpecialMove(Character& opponent);
 		void healing();
 		void movecharacter();
 
