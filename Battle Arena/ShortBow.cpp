@@ -8,6 +8,14 @@ void ShortBow::displayStats() const {
     // cout << "Description: A quick succession of arrows that deal damage to multiple targets." << endl;
 }
 void ShortBow::useSpecialMove(Character* target) {
+    if (!canUseSpecial()) {
+        std::cout << "Special move unavailable or no uses left.\n";
+        return;
+    }
+    
+    std::cout << name << " uses its special power!\n";
+    // ... apply effect ...
+    reduceSpecialUse();
     // cout << "Using Rapid Fire on " << target->getname() << "!" << endl;
     // Implement the logic for the special move here
     // For example, you could deal damage to the target
