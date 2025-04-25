@@ -5,21 +5,30 @@
 
 #include <iostream>
 using namespace std;
+class Character;
 
 class Enemy {
-	protected:
-		string name;
-		float health, attackpower;
-	public:
-		Enemy() : name(" "), health(0), attackpower(0) {}
-		Enemy(string name, float health, float attackpower) : name(name), health(health), attackpower(attackpower) {}
+protected:
+    std::string name;
+    std::string type;
+    std::string weaponName;
+    float health;
+    float damage;
+    int specialUsesLeft = 2;
 
+public:
+    Enemy(std::string name, std::string type, std::string weaponName, float health, float damage);
 
-		string getname() const ;
-		float gethealth() const ;
-		float getattackpower() const ;
+    virtual void attack(Character* target);
+    virtual void useSpecial(Character* target);
+    virtual void heal();
+    virtual void move();
+    virtual void displayStats() const;
+    virtual bool isAlive() const;
 
-		virtual ~Enemy();
+    virtual void decideAction(Character* target) = 0;
+
+    virtual ~Enemy() = default;
 };
 
 #endif

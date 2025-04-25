@@ -1,14 +1,10 @@
 #pragma once
-
 #include "Enemy.hpp"
 
 class Witch : public Enemy {
-	private:
+public:
+    Witch(std::string name = "Hexa")
+        : Enemy(name, "Witch", "Jadoo ki Chari", 80.f, 18.f) {}
 
-	public:
-		Witch() : Enemy("Witch", 100, 25) {}
-		Witch(string name, float health, float attackpower) : Enemy(name, health, attackpower) {}
-
-
+    void decideAction(Character* target) override;
 };
-
