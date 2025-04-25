@@ -15,9 +15,12 @@ protected:
     float health;
     float damage;
     int specialUsesLeft = 2;
+    int level = 1;
+    int healsUsed = 0;
 
 public:
-    Enemy(std::string name, std::string type, std::string weaponName, float health, float damage);
+Enemy(std::string name, std::string type, std::string weaponName, float health, float damage, int level = 1)
+: name(name), type(type), weaponName(weaponName), health(health), damage(damage), level(level) {}
 
     virtual void attack(Character* target);
     virtual void useSpecial(Character* target);

@@ -1,8 +1,6 @@
 #include "Enemy.hpp"
-#include "Player_Character.hpp" // to interact with player
+#include "Player_Character.hpp"
 
-Enemy::Enemy(std::string name, std::string type, std::string weaponName, float health, float damage)
-    : name(name), type(type), weaponName(weaponName), health(health), damage(damage) {}
 
 void Enemy::attack(Character* target) {
     std::cout << name << " attacks with " << weaponName << " for " << damage << " damage.\n";
@@ -21,9 +19,19 @@ void Enemy::useSpecial(Character* target) {
 }
 
 void Enemy::heal() {
-    health += 20;
-    std::cout << name << " heals and now has " << health << " HP.\n";
+    if (healsUsed >= level) {
+        std::cout << name << " has used all of their heals!\n";
+        return;
+    }
+
+    float healAmount = 15;
+    health += healAmount;
+    healsUsed++;
+
+    std::cout << name << " heals for " << healAmount << " HP. ("
+              << healsUsed << "/" << level << " heals used)\n";
 }
+
 
 void Enemy::move() {
     std::cout << name << " shifts its position on the battlefield.\n";

@@ -18,6 +18,8 @@ class Character {
 		Weapon* weapon1 = nullptr;
 		Weapon* weapon2 = nullptr;
 		Weapon* currentWeapon = nullptr;
+		int healsUsed = 0;
+
 	public:
 		Character(string n, float health, float damage, string type, Weapon* weapon1): name(n), health(health), damage(damage), type(type), weapon1(weapon1), weapon2(nullptr), currentWeapon(weapon1) {}
 		
