@@ -152,5 +152,8 @@
     <Image Include="Select_Character.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Mage.jpeg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

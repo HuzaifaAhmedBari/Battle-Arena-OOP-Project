@@ -38,8 +38,8 @@ class Game
     public:
         void run();
         void start_screen(RenderWindow &window,GameState &currentstate, Sprite &Start_BackGround_sprite);
-        void select_character_screen(RenderWindow &window, GameState &currentstate, CharacterState &currrentcharacter, Sprite &Select_Character_sprite);
-        void select_weapon_screen();
+        void select_character_screen(RenderWindow &window, GameState &currentstate, CharacterState &currrentcharacter, WeaponState &currenteweapon, Sprite &Select_Character_sprite, Sprite &Mage_sprite);
+        void select_weapon_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite &Select_Weapon_sprite);
 };
 
 #endif

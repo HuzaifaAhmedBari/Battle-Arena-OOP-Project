@@ -190,6 +190,7 @@
     <ClInclude Include="Witch.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Mage.jpeg" />
     <Image Include="Select_Character.jpg" />
     <Image Include="StartBackground.png" />
   </ItemGroup>

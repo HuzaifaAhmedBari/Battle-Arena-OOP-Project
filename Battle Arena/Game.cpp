@@ -32,8 +32,30 @@ void Game::run() {
     scaleY = 800.f / Select_Character_texture.getSize().y;
     Select_Character_sprite.setScale({ scaleX, scaleY });
 
+    Texture Mage_texture;
+    if (!Mage_texture.loadFromFile("Mage.jpeg"))
+    {
+        cout << "Error Loading the Sprite" << endl;
+    }
+    Sprite Mage_sprite(Mage_texture);
+    scaleX = 250.f / Mage_texture.getSize().x;
+    scaleY = 250.f / Mage_texture.getSize().y;
+    Mage_sprite.setScale({ scaleX,scaleY });
+    Mage_sprite.setPosition({ 650,300 });
+
+    /*Texture Select_Weapon_texture;
+	if (!Select_Weapon_texture.loadFromFile("Select_Weapon.jpg"))
+	{
+		cout << "Error Loading the Background" << endl;
+	}
+	Sprite Select_Weapon_sprite(Select_Weapon_texture);
+	scaleX = 1200.f / Select_Weapon_texture.getSize().x;
+	scaleY = 800.f / Select_Weapon_texture.getSize().y;
+	Select_Weapon_sprite.setScale({ scaleX, scaleY });*/
+
     GameState currentstate = GameState::Start;
 	CharacterState currentcharacter = CharacterState::Archer;
+	WeaponState currentweapon = WeaponState::Sword;
 
     Clock deltaClock;
     while (window.isOpen()) {
@@ -54,11 +76,11 @@ void Game::run() {
         }
         else if (currentstate == SelectCharacter)
         {
-            select_character_screen(window, currentstate, currentcharacter, Select_Character_sprite);
+            select_character_screen(window, currentstate, currentcharacter, currentweapon, Select_Character_sprite, Mage_sprite);
         }
         else if (currentstate == SelectWeapon)
         {
-            //select_weapon_screen();
+            //select_weapon_screen(window, currentstate, currentcharacter, currentweapon, Select_Weapon_sprite);
             window.close();
         }
 
@@ -95,7 +117,7 @@ void Game::start_screen(RenderWindow &window,GameState &currentstate, Sprite &St
     ImGui::End();
 }
 
-void Game::select_character_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, Sprite &Select_Character_sprite) {
+void Game::select_character_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite &Select_Character_sprite, Sprite &Mage_sprite) {
     window.draw(Select_Character_sprite);
 
 	float buttonWidth, buttonHeight;
@@ -133,6 +155,7 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
         currentcharacter = Archer;
+		currentweapon = ShortBow;
     }
 
     ImGui::End();
@@ -148,6 +171,7 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
         currentcharacter = Warrior;
+		currentweapon = Sword;
     }
 
     ImGui::End();
@@ -161,13 +185,20 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
-        currentcharacter = Warrior;
+        currentcharacter = Mage;
+		currentweapon = FireStaff;
+    }
+
+    if (currentcharacter == Mage)
+    {
+        window.draw(Mage_sprite);
+
     }
 
     ImGui::End();
 }
 
-void Game::select_weapon_screen() {
+void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite &Select_Weapon_sprite) {
 
 
 }
