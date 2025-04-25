@@ -127,6 +127,24 @@ void Character::updateWeapons() {
 
 
 }
+void Character::useWeapon1SpecialMove(Character* target) {
+    if (!weapon1 || !weapon1->canUseSpecial()) {
+        std::cout << "Weapon 1's special move is not available.\n";
+        return;
+    }
+
+    weapon1->useSpecialMove(target);
+}
+
+void Character::useWeapon2SpecialMove(Character* target) {
+    if (!weapon2 || !weapon2->canUseSpecial()) {
+        std::cout << "Weapon 2's special move is not available.\n";
+        return;
+    }
+
+    weapon2->useSpecialMove(target);
+}
+
 void Character::sethealth(float health) {
     this->health = health;
 }
