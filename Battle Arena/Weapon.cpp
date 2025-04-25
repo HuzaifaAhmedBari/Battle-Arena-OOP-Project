@@ -20,7 +20,12 @@ void Weapon::levelUpEffect(int playerLevel) {
         std::cout << name << "'s special move is now unlocked!\n";
     }
 }
-
+bool Weapon::canUseSpecial() const {
+    return specialUnlocked && specialUsesLeft > 0;
+}
+void Weapon::reduceSpecialUse() {
+    if (specialUsesLeft > 0) specialUsesLeft--;
+}
 string Weapon::getname() const {
 	return name;
 }
