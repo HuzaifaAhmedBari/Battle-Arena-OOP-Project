@@ -88,6 +88,9 @@
     <ClCompile Include="Witch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Status_Effect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player_Character.hpp">
@@ -138,9 +141,15 @@
     <ClInclude Include="Witch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Status_Effect.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="StartBackground.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Select_Character.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

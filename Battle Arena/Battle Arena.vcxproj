@@ -158,6 +158,7 @@
     <ClCompile Include="ShortBow.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="IceStaff.cpp" />
+    <ClCompile Include="Status_Effect.cpp" />
     <ClCompile Include="Sword.cpp" />
     <ClCompile Include="Warrior.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -182,12 +183,14 @@
     <ClInclude Include="Player_Character.hpp" />
     <ClInclude Include="IceStaff.hpp" />
     <ClInclude Include="ShortBow.hpp" />
+    <ClInclude Include="Status_Effect.hpp" />
     <ClInclude Include="Sword.hpp" />
     <ClInclude Include="Warrior.hpp" />
     <ClInclude Include="Weapon.hpp" />
     <ClInclude Include="Witch.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Select_Character.jpg" />
     <Image Include="StartBackground.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

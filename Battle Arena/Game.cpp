@@ -23,7 +23,7 @@ void Game::run() {
     Start_BackGround_sprite.setScale({ scaleX, scaleY });
 
     Texture Select_Character_texture;
-    if (!Select_Character_texture.loadFromFile("Select_Character2.jpg"))
+    if (!Select_Character_texture.loadFromFile("Select_Character.jpg"))
     {
         cout << "Error Loading the Background" << endl;
     }
@@ -104,13 +104,13 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
     style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.15f);
     style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.5f);
 
-    float buttonWidth = window.getSize().x * 0.3f;
-    float buttonHeight = window.getSize().y * 0.159f;
-    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.485f - buttonWidth / 2, window.getSize().y * 0.885f - buttonHeight / 2));
+    float buttonWidth = window.getSize().x * 0.319f;
+    float buttonHeight = window.getSize().y * 0.14f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.5762f - buttonWidth / 2, window.getSize().y * 0.8652f - buttonHeight / 2));
     ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
 
-    ImGui::Begin("START", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+    ImGui::Begin("SELECT", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
