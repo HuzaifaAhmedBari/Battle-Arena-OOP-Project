@@ -8,6 +8,14 @@ void Axe::displayStats() const {
 }
 
 void Axe::useSpecialMove(Character* target) {
+    if (!canUseSpecial()) {
+        std::cout << "Special move unavailable or no uses left.\n";
+        return;
+    }
+    
+    std::cout << name << " uses its special power!\n";
+    // ... apply effect ...
+    reduceSpecialUse();
     // cout << "Using Whirlwind Attack on " << target->getname() << "!" << endl;
     // Implement the logic for the special move here
     // For example, you could deal damage to the target
