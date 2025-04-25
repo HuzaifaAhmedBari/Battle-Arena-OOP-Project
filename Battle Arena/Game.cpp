@@ -33,6 +33,7 @@ void Game::run() {
     Select_Character_sprite.setScale({ scaleX, scaleY });
 
     GameState currentstate = GameState::Start;
+	CharacterState currentcharacter = CharacterState::Archer;
 
     Clock deltaClock;
     while (window.isOpen()) {
@@ -53,7 +54,7 @@ void Game::run() {
         }
         else if (currentstate == SelectCharacter)
         {
-            select_character_screen(window, currentstate, Select_Character_sprite);
+            select_character_screen(window, currentstate, currentcharacter, Select_Character_sprite);
         }
         else if (currentstate == SelectWeapon)
         {
@@ -94,23 +95,25 @@ void Game::start_screen(RenderWindow &window,GameState &currentstate, Sprite &St
     ImGui::End();
 }
 
-void Game::select_character_screen(RenderWindow &window, GameState &currentstate, Sprite &Select_Character_sprite) {
+void Game::select_character_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, Sprite &Select_Character_sprite) {
     window.draw(Select_Character_sprite);
 
+	float buttonWidth, buttonHeight;
+
     ImGuiStyle& style = ImGui::GetStyle();
-    style.FrameRounding = 30.0f;
+    style.FrameRounding = 25.0f;
     style.FramePadding = ImVec2(15, 10);
     style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
     style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.15f);
     style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.5f);
 
-    float buttonWidth = window.getSize().x * 0.319f;
-    float buttonHeight = window.getSize().y * 0.14f;
+
+    buttonWidth = window.getSize().x * 0.319f;
+    buttonHeight = window.getSize().y * 0.14f;
     ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.5762f - buttonWidth / 2, window.getSize().y * 0.8652f - buttonHeight / 2));
     ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
-
-    ImGui::Begin("SELECT", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+    ImGui::Begin("SELECT_CHARACTER", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
@@ -118,8 +121,53 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
     }
 
     ImGui::End();
+
+
+    buttonWidth = window.getSize().x * 0.227f;
+    buttonHeight = window.getSize().y * 0.13f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.287f - buttonWidth / 2, window.getSize().y * 0.46f - buttonHeight / 2));
+    ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
+
+    ImGui::Begin("ARCHER", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+
+    if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
+    {
+        currentcharacter = Archer;
+    }
+
+    ImGui::End();
+
+
+    buttonWidth = window.getSize().x * 0.227f;
+    buttonHeight = window.getSize().y * 0.125f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.287f - buttonWidth / 2, window.getSize().y * 0.6f - buttonHeight / 2));
+    ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
+
+    ImGui::Begin("Warrior", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+
+    if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
+    {
+        currentcharacter = Warrior;
+    }
+
+    ImGui::End();
+
+    buttonWidth = window.getSize().x * 0.227f;
+    buttonHeight = window.getSize().y * 0.125f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.287f - buttonWidth / 2, window.getSize().y * 0.747f - buttonHeight / 2));
+    ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
+
+    ImGui::Begin("Mage", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+
+    if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
+    {
+        currentcharacter = Warrior;
+    }
+
+    ImGui::End();
 }
 
 void Game::select_weapon_screen() {
+
 
 }
