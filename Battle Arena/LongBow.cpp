@@ -8,6 +8,14 @@ void LongBow::displayStats() const {
     // cout << "Description: A powerful shot that pierces through armor." << endl;
 }
 void LongBow::useSpecialMove(Character* target) {
+    if (!canUseSpecial()) {
+        std::cout << "Special move unavailable or no uses left.\n";
+        return;
+    }
+    
+    std::cout << name << " uses its special power!\n";
+    // ... apply effect ...
+    reduceSpecialUse();
     // cout << "Using Piercing Arrow on " << target->getname() << "!" << endl;
     // Implement the logic for the special move here
     // For example, you could deal damage to the target
