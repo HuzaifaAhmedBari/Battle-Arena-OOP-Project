@@ -190,9 +190,11 @@
     <ClInclude Include="Witch.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Mage.jpeg" />
+    <Image Include="Archer.png" />
+    <Image Include="Mage.png" />
     <Image Include="Select_Character.jpg" />
-    <Image Include="StartBackground.png" />
+    <Image Include="StartBackground.jpg" />
+    <Image Include="Warrior.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

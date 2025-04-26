@@ -13,7 +13,7 @@ void Game::run() {
     }
 
     Texture Start_BackGround_texture;
-    if (!Start_BackGround_texture.loadFromFile("StartBackGround.png"))
+    if (!Start_BackGround_texture.loadFromFile("StartBackGround.jpg"))
     {
         cout << "Error Loading the Background" << endl;
     }
@@ -32,16 +32,38 @@ void Game::run() {
     scaleY = 800.f / Select_Character_texture.getSize().y;
     Select_Character_sprite.setScale({ scaleX, scaleY });
 
+    Texture Archer_texture;
+    if (!Archer_texture.loadFromFile("Archer.png"))
+    {
+        cout << "Error Loading the Sprite" << endl;
+    }
+    Sprite Archer_sprite(Archer_texture);
+    scaleX = 250.f / Archer_texture.getSize().x;
+    scaleY = 350.f / Archer_texture.getSize().y;
+    Archer_sprite.setScale({ scaleX,scaleY });
+    Archer_sprite.setPosition({ 650,250 });
+
     Texture Mage_texture;
-    if (!Mage_texture.loadFromFile("Mage.jpeg"))
+    if (!Mage_texture.loadFromFile("Mage.png"))
     {
         cout << "Error Loading the Sprite" << endl;
     }
     Sprite Mage_sprite(Mage_texture);
     scaleX = 250.f / Mage_texture.getSize().x;
-    scaleY = 250.f / Mage_texture.getSize().y;
+    scaleY = 350.f / Mage_texture.getSize().y;
     Mage_sprite.setScale({ scaleX,scaleY });
-    Mage_sprite.setPosition({ 650,300 });
+    Mage_sprite.setPosition({ 650,250 });
+
+    Texture Warrior_texture;
+    if (!Warrior_texture.loadFromFile("Warrior.png"))
+    {
+        cout << "Error Loading the Sprite" << endl;
+    }
+    Sprite Warrior_sprite(Warrior_texture);
+    scaleX = 250.f / Warrior_texture.getSize().x;
+    scaleY = 350.f / Warrior_texture.getSize().y;
+    Warrior_sprite.setScale({ scaleX,scaleY });
+    Warrior_sprite.setPosition({ 650,250 });
 
     /*Texture Select_Weapon_texture;
 	if (!Select_Weapon_texture.loadFromFile("Select_Weapon.jpg"))
@@ -76,7 +98,7 @@ void Game::run() {
         }
         else if (currentstate == SelectCharacter)
         {
-            select_character_screen(window, currentstate, currentcharacter, currentweapon, Select_Character_sprite, Mage_sprite);
+            select_character_screen(window, currentstate, currentcharacter, currentweapon, Select_Character_sprite, Archer_sprite, Warrior_sprite, Mage_sprite);
         }
         else if (currentstate == SelectWeapon)
         {
@@ -95,15 +117,15 @@ void Game::start_screen(RenderWindow &window,GameState &currentstate, Sprite &St
     window.draw(Start_BackGround_sprite);
 
     ImGuiStyle& style = ImGui::GetStyle();
-    style.FrameRounding = 30.0f;
+    style.FrameRounding = 20.0f;
     style.FramePadding = ImVec2(15, 10);
     style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
-    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.15f);
-    style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.5f);
+    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.1f);
+    style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.f, 0.f, 0.f, 0.2f);
 
-    float buttonWidth = window.getSize().x * 0.3f;
-    float buttonHeight = window.getSize().y * 0.159f;
-    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.485f - buttonWidth / 2, window.getSize().y * 0.885f - buttonHeight / 2));
+    float buttonWidth = window.getSize().x * 0.255f;
+    float buttonHeight = window.getSize().y * 0.125f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.495f - buttonWidth / 2, window.getSize().y * 0.47f - buttonHeight / 2));
     ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
 
@@ -117,7 +139,7 @@ void Game::start_screen(RenderWindow &window,GameState &currentstate, Sprite &St
     ImGui::End();
 }
 
-void Game::select_character_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite &Select_Character_sprite, Sprite &Mage_sprite) {
+void Game::select_character_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite &Select_Character_sprite, Sprite &Archer_sprite, Sprite &Warrior_sprite, Sprite &Mage_sprite) {
     window.draw(Select_Character_sprite);
 
 	float buttonWidth, buttonHeight;
@@ -126,13 +148,13 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
     style.FrameRounding = 25.0f;
     style.FramePadding = ImVec2(15, 10);
     style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
-    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.15f);
-    style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.5f);
+    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.f, 0.f, 0.f, 0.1f);
+    style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.f, 0.f, 0.f, 0.2f);
 
 
-    buttonWidth = window.getSize().x * 0.319f;
-    buttonHeight = window.getSize().y * 0.14f;
-    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.5762f - buttonWidth / 2, window.getSize().y * 0.8652f - buttonHeight / 2));
+    buttonWidth = window.getSize().x * 0.325f;
+    buttonHeight = window.getSize().y * 0.134f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.615f - buttonWidth / 2, window.getSize().y * 0.835f - buttonHeight / 2));
     ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
     ImGui::Begin("SELECT_CHARACTER", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
@@ -145,9 +167,9 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
     ImGui::End();
 
 
-    buttonWidth = window.getSize().x * 0.227f;
-    buttonHeight = window.getSize().y * 0.13f;
-    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.287f - buttonWidth / 2, window.getSize().y * 0.46f - buttonHeight / 2));
+    buttonWidth = window.getSize().x * 0.255f;
+    buttonHeight = window.getSize().y * 0.125f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.308f - buttonWidth / 2, window.getSize().y * 0.42f - buttonHeight / 2));
     ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
     ImGui::Begin("ARCHER", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
@@ -161,9 +183,9 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
     ImGui::End();
 
 
-    buttonWidth = window.getSize().x * 0.227f;
-    buttonHeight = window.getSize().y * 0.125f;
-    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.287f - buttonWidth / 2, window.getSize().y * 0.6f - buttonHeight / 2));
+    buttonWidth = window.getSize().x * 0.258f;
+    buttonHeight = window.getSize().y * 0.123f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.308f - buttonWidth / 2, window.getSize().y * 0.565f - buttonHeight / 2));
     ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
     ImGui::Begin("Warrior", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
@@ -176,9 +198,9 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     ImGui::End();
 
-    buttonWidth = window.getSize().x * 0.227f;
-    buttonHeight = window.getSize().y * 0.125f;
-    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.287f - buttonWidth / 2, window.getSize().y * 0.747f - buttonHeight / 2));
+    buttonWidth = window.getSize().x * 0.25f;
+    buttonHeight = window.getSize().y * 0.12f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.311f - buttonWidth / 2, window.getSize().y * 0.702f - buttonHeight / 2));
     ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
     ImGui::Begin("Mage", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
@@ -189,7 +211,15 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 		currentweapon = FireStaff;
     }
 
-    if (currentcharacter == Mage)
+    if (currentcharacter == Archer)
+    {
+        window.draw(Archer_sprite);
+    }
+    else if (currentcharacter == Warrior)
+    {
+		window.draw(Warrior_sprite);
+    }
+    else if (currentcharacter == Mage)
     {
         window.draw(Mage_sprite);
 

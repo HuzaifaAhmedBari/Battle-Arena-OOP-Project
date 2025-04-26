@@ -146,13 +146,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="StartBackground.png">
+    <Image Include="StartBackground.jpg">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Select_Character.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Mage.jpeg">
+    <Image Include="Mage.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Warrior.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Archer.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
