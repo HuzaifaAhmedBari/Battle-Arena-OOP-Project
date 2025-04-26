@@ -98,8 +98,8 @@ void Game::start_screen(RenderWindow &window,GameState &currentstate, Sprite &St
     style.FrameRounding = 30.0f;
     style.FramePadding = ImVec2(15, 10);
     style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
-    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.15f);
-    style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.5f);
+    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.f, 0.f, 0.f, 0.1f);
+    style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.f, 0.f, 0.f, 0.2f);
 
     float buttonWidth = window.getSize().x * 0.3f;
     float buttonHeight = window.getSize().y * 0.159f;
@@ -126,8 +126,8 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
     style.FrameRounding = 25.0f;
     style.FramePadding = ImVec2(15, 10);
     style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
-    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.15f);
-    style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.5f);
+    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.f, 0.f, 0.f, 0.1f);
+    style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.f, 0.f, 0.f, 0.2f);
 
 
     buttonWidth = window.getSize().x * 0.319f;
