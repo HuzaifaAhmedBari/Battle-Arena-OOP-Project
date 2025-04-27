@@ -226,6 +226,16 @@ void Game::start_screen(RenderWindow &window,GameState &currentstate, Sprite &St
 
 void Game::select_character_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite &Select_Character_sprite, Sprite &Archer_sprite, Sprite &Warrior_sprite, Sprite &Mage_sprite) {
     window.draw(Select_Character_sprite);
+    CircleShape triangle(10.f, 3);
+    triangle.setFillColor({ 102,105,107 });
+    triangle.setPosition({ 20,40 });
+    Angle angle = degrees(270);
+    triangle.setRotation(angle);
+    RectangleShape rect({ 25,10 });
+    rect.setFillColor({ 102,105,107 });
+    rect.setPosition({ 30,25 });
+    window.draw(rect);
+    window.draw(triangle);
 
 	float buttonWidth, buttonHeight;
 
@@ -298,6 +308,20 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     ImGui::End();
 
+    buttonWidth = window.getSize().x * 0.04f;
+    buttonHeight = window.getSize().y * 0.025f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.03f - buttonWidth / 2, window.getSize().y * 0.028f - buttonHeight / 2));
+    ImGui::SetNextWindowSize(ImVec2(buttonWidth + 0.5, buttonHeight + 0.1));
+
+    ImGui::Begin("BACK", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+
+    if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
+    {
+        currentstate = Start;
+    }
+
+    ImGui::End();
+
     if (currentcharacter == Archer)
     {
         window.draw(Archer_sprite);
@@ -326,6 +350,16 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 	{
 		window.draw(Select_Weapon_Mage_sprite);
 	}
+    CircleShape triangle(10.f, 3);
+    triangle.setFillColor({ 102,105,107 });
+    triangle.setPosition({ 20,40 });
+    Angle angle = degrees(270);
+    triangle.setRotation(angle);
+    RectangleShape rect({ 25,10 });
+    rect.setFillColor({ 102,105,107 });
+    rect.setPosition({ 30,25 });
+    window.draw(rect);
+    window.draw(triangle);
 
     float buttonWidth, buttonHeight;
 
@@ -445,6 +479,20 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
         ImGui::End();
     }
+
+    buttonWidth = window.getSize().x * 0.04f;
+    buttonHeight = window.getSize().y * 0.025f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.03f - buttonWidth / 2, window.getSize().y * 0.028f - buttonHeight / 2));
+    ImGui::SetNextWindowSize(ImVec2(buttonWidth + 0.5, buttonHeight + 0.1));
+
+    ImGui::Begin("BACK", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+
+    if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
+    {
+        currentstate = SelectCharacter;
+    }
+
+    ImGui::End();
 
 	if (currentweapon == ShortBow)
 	{
