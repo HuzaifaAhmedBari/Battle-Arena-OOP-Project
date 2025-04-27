@@ -161,5 +161,32 @@
     <Image Include="Archer.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Select_Weapon_Mage.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Select_Weapon_Archer.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Select_Weapon_Warrior.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ShortBow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="LongBow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Downloads\Sword.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Axe.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="IceStaff.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="FireStaff.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
