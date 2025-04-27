@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-void Game::run() {
+void Game::select_Menus() {
     float scaleX, scaleY;
 
     RenderWindow window(sf::VideoMode({ 1200, 800 }), "BATTLE ARENA");
@@ -518,5 +518,10 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 	{
 		window.draw(FireStaff_sprite);
 	}
+
+}
+
+
+void Game::run() {
 
 }
