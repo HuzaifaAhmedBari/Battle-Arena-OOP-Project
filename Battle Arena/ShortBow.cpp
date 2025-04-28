@@ -2,6 +2,9 @@
 #include "Status_Effect.hpp"
 #include "Player_Character.hpp"
 
+void ShortBow::attack() {
+
+}
 void ShortBow::displayStats() const {
     Weapon::displayStats();
     // cout << "Special Move: Rapid Fire" << endl;

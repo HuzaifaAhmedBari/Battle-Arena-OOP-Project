@@ -25,12 +25,11 @@ class Character {
 	public:
 		Character(string name, float health, float damage, Weapon *weapon1, Weapon *weapon2): name(name), health(health), damage(damage), weapon1(weapon1), weapon2(weapon2) {}
 		
-		virtual void attack(Character& opponent) = 0;
+		virtual void attack(Character *opponent);
 		virtual void takeDamage(float damage);
 		virtual void useSpecialAbility();
 		virtual void movecharacter();
 		virtual void healing();
-		void attackWithCurrentWeapon(Character* target);
 		void useCurrentSpecialMove(Character* target);
 		void displayWeaponOptions() const;
 		void displayStats() const;

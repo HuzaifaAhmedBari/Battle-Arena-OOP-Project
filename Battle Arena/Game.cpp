@@ -30,7 +30,7 @@ void Game::run() {
         else
 			player = new Mage("Gandalf", 100.f, 100.f, new FireStaff("Fire_Staff", 10.f, 10.f), new IceStaff("Ice_Staff", 10.f, 10.f));
     }
-
+    
 }
 
 void Game::select_Menus(GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon) {

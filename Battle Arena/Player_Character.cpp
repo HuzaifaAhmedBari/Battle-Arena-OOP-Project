@@ -21,7 +21,7 @@ void Character::displayWeaponOptions() const {
         std::cout << "\n";
     }
 }
-void Character::attackWithCurrentWeapon(Character* target) {
+void Character::attack(Character *opponent) {
     /*if (!currentWeapon) {
         std::cout << "No weapon equipped! Cannot attack.\n";
         return;
@@ -31,7 +31,7 @@ void Character::attackWithCurrentWeapon(Character* target) {
     std::cout << "Attacking with " << currentWeapon->getname() << " for " << dmg << " damage!\n";
     target->takeDamage(dmg);*/
 }
-void Character::useCurrentSpecialMove(Character* target) {
+void Character::useCurrentSpecialMove(Character *target) {
     /*if (!currentWeapon) {
         std::cout << "No weapon equipped.\n";
         return;

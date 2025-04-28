@@ -2,7 +2,9 @@
 #include "Status_Effect.hpp"
 #include "Player_Character.hpp"
 
+void FireStaff::attack() {
 
+}
 void FireStaff::displayStats() const {
     Weapon::displayStats();
 }

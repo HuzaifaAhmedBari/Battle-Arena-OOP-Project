@@ -1,7 +1,9 @@
 #include "Sword.hpp"
 #include "Player_Character.hpp"
 
+void Sword::attack() {
 
+}
 
 void Sword::displayStats() const {
     Weapon::displayStats();

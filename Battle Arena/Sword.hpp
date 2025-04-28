@@ -9,9 +9,9 @@ class Sword : public Weapon {
 		Sword() {}
 		Sword(string name, float range, float damage) : Weapon(name,range,damage) {}
 
+		void attack() override;
 		void displayStats() const override;
 		void useSpecialMove(Character* target) override;
-
 		
 		~Sword() {}
 };

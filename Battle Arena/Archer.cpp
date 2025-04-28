@@ -1,7 +1,7 @@
 #include "Archer.hpp"
-
+ 
 void Archer::attack(Character& opponent) {
-    attackWithCurrentWeapon(&opponent);
+    
 }
 void Archer::attackWithSpecialMove(Character& opponent) {
     if (weapon1 && weapon1->isSpecialUnlocked()) {

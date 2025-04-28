@@ -1,6 +1,4 @@
 #include "Enemy.hpp"
-#include "Player_Character.hpp"
-
 
 void Enemy::attack(Character* target) {
     std::cout << name << " attacks with " << weaponName << " for " << damage << " damage.\n";
@@ -28,19 +26,17 @@ void Enemy::heal() {
     health += healAmount;
     healsUsed++;
 
-    std::cout << name << " heals for " << healAmount << " HP. ("
-              << healsUsed << "/" << level << " heals used)\n";
+    cout << name << " heals for " << healAmount << " HP. (" << healsUsed << "/" << level << " heals used)\n";
 }
 
 
 void Enemy::move() {
-    std::cout << name << " shifts its position on the battlefield.\n";
+    cout << name << " shifts its position on the battlefield.\n";
 }
 
 void Enemy::displayStats() const {
-    std::cout << "=== Enemy: " << name << " ===\n";
-    std::cout << "Type: " << type << "\nHealth: " << health << "\nWeapon: " << weaponName
-              << "\nSpecial Moves Left: " << specialUsesLeft << "\n";
+    cout << "=== Enemy: " << name << " ===\n";
+    cout << "Type: " << type << "\nHealth: " << health << "\nWeapon: " << weaponName << "\nSpecial Moves Left: " << specialUsesLeft << "\n";
 }
 
 bool Enemy::isAlive() const {

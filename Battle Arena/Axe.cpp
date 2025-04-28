@@ -1,6 +1,9 @@
 #include "Axe.hpp"
 #include "Player_Character.hpp"
 
+void Axe::attack() {
+
+}
 void Axe::displayStats() const {
     Weapon::displayStats();
     // cout << "Special Move: Whirlwind Attack" << endl;

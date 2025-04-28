@@ -1,7 +1,9 @@
 #include "LongBow.hpp"
 #include "Player_Character.hpp"
 
-
+void LongBow::attack() {
+    
+}
 
 void LongBow::displayStats() const {
     Weapon::displayStats();

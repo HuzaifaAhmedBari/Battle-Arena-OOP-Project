@@ -23,6 +23,7 @@ class Weapon
 		virtual void displayStats() const;
 		virtual void useSpecialMove(Character* target) = 0;
 		virtual void levelUpEffect(int playerLevel);
+		virtual void attack();
     	bool isSpecialUnlocked() const;
 		bool canUseSpecial() const;
 		void reduceSpecialUse();

@@ -3,15 +3,16 @@
 #ifndef Enemy_HPP
 #define Enemy_HPP
 
+#include "Player_Character.hpp"
+
 #include <iostream>
 using namespace std;
-class Character;
 
 class Enemy {
 protected:
-    std::string name;
-    std::string type;
-    std::string weaponName;
+    string name;
+    string type;
+    string weaponName;
     float health;
     float damage;
     int specialUsesLeft = 2;
@@ -19,7 +20,7 @@ protected:
     int healsUsed = 0;
 
 public:
-Enemy(std::string name, std::string type, std::string weaponName, float health, float damage, int level = 1)
+Enemy(string name, string type, string weaponName, float health, float damage, int level = 1)
 : name(name), type(type), weaponName(weaponName), health(health), damage(damage), level(level) {}
 
     virtual void attack(Character* target);

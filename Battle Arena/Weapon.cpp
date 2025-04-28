@@ -1,6 +1,8 @@
 #include "Weapon.hpp"
 
+void Weapon::attack() {
 
+}
 void Weapon::displayStats() const {
 	cout << "Weapon Name: " << name << endl;
 	cout << "Range: " << range << endl;
