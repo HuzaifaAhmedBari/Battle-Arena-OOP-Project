@@ -1,7 +1,7 @@
 #include "Mage.hpp"
 
 void Mage::attack(Character& opponent) {
-    attackWithCurrentWeapon(&opponent);
+    
 }
 void Mage::attackWithSpecialMove(Character& opponent) {
     if (weapon1 && weapon1->isSpecialUnlocked()) {

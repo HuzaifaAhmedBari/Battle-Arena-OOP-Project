@@ -2,7 +2,7 @@
 #include "Player_Character.hpp"
 
 void Warrior::attack(Character& opponent) {
-	attackWithCurrentWeapon(&opponent);
+	
 }
 void Warrior::attackWithSpecialMove(Character &opponent) {
     if (weapon1 && weapon1->isSpecialUnlocked()) {

@@ -4,6 +4,8 @@
 #define Game_HPP
 
 #include "Player_Character.hpp"
+#include "Enemy.hpp"
+#include "Goblin.hpp"
 #include "Weapon.hpp"
 #include "Archer.hpp"
 #include "Warrior.hpp"
@@ -29,7 +31,9 @@ using namespace sf;
 enum GameState {
     Start,
     SelectCharacter,
-    SelectWeapon
+    SelectWeapon,
+    Level1,
+    Level2
 };
 enum CharacterState {
 	Warrior_character,
@@ -55,12 +59,13 @@ class Game
 
         void run();
 
-        void select_Menus(GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon);
+        void select_Menus(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite& Start_BackGround_sprite, Sprite& Select_Character_sprite, Sprite& Archer_sprite, Sprite& Warrior_sprite, Sprite& Mage_sprite, Sprite& Select_Weapon_Archer_sprite, Sprite& Select_Weapon_Warrior_sprite, Sprite& Select_Weapon_Mage_sprite, Sprite& ShortBow_sprite, Sprite& LongBow_sprite, Sprite& Sword_sprite, Sprite& Axe_sprite, Sprite& IceStaff_sprite, Sprite& FireStaff_sprite);
         void start_screen(RenderWindow &window,GameState &currentstate, Sprite &Start_BackGround_sprite);
         void select_character_screen(RenderWindow &window, GameState &currentstate, CharacterState &currrentcharacter, WeaponState &currenteweapon, Sprite &Select_Character_sprite, Sprite &Archer_sprite, Sprite &Warrior_sprite, Sprite &Mage_sprite);
         void select_weapon_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite &Select_Weapon_Archer_sprite, Sprite &Select_Weapon_Warrior_sprite, Sprite &Select_Weapon_Mage_sprite, Sprite &ShortBow_sprite, Sprite &LongBow_sprite, Sprite &Sword_sprite, Sprite &Axe_sprite, Sprite &IceStaff_sprite, Sprite &FireStaff_sprite);
 
-        void level1();
+        void levels(RenderWindow &window, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon1_sprite, Sprite &Weapon2_sprite, GameState &currentstate);
+        void level1(bool &initialized_level1);
 };
 
 #endif
