@@ -13,12 +13,11 @@ class Weapon
 	protected:
 		string name;
 		float range, damage;
-		float damageIncrement = 5.0f;
-		int unlockLevel = 1, specialMoveUnlockLevel = 3;
 		bool specialUnlocked = false;
-		int specialUsesLeft = 2;
+		bool weapon2Unlocked = false;
+		int specialUsesLeft = 0;
 	public:
-		Weapon() {}
+		Weapon() : name(" "),range(0.f), damage(0.f) {}
 		Weapon(string name, float range, float damage) : name(name), range(range), damage(damage) {}
 
 		virtual void displayStats() const;

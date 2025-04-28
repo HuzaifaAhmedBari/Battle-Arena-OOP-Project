@@ -18,25 +18,18 @@ class Character {
 		string type;
 		Weapon* weapon1 = nullptr;
 		Weapon* weapon2 = nullptr;
-		Weapon* currentWeapon = nullptr;
 		int healsUsed = 0;
 		StatusEffect status = StatusEffect::None;
 		int statusDuration = 0;
 
-
 	public:
-		Character(string n, float health, float damage, string type, Weapon* weapon1): name(n), health(health), damage(damage), type(type), weapon1(weapon1), weapon2(nullptr), currentWeapon(weapon1) {}
+		Character(string name, float health, float damage, Weapon *weapon1, Weapon *weapon2): name(name), health(health), damage(damage), weapon1(weapon1), weapon2(weapon2) {}
 		
 		virtual void attack(Character& opponent) = 0;
-		virtual void takeDamage(float damage) = 0;
-		virtual void useSpecialAbility() = 0;
-		virtual void movecharacter() = 0;
-		virtual void healing() = 0;
-		void levelUp();
-		void updateWeapons();
-		void chooseWeapon();
-		void unequipWeapon();
-		void switchWeapon();
+		virtual void takeDamage(float damage);
+		virtual void useSpecialAbility();
+		virtual void movecharacter();
+		virtual void healing();
 		void attackWithCurrentWeapon(Character* target);
 		void useCurrentSpecialMove(Character* target);
 		void displayWeaponOptions() const;
@@ -47,7 +40,6 @@ class Character {
 		void applyStatus(StatusEffect effect, int duration);
 		void updateStatus();
 		void sethealth(float health);
-		string getType() const;
 		string getname() const;
 		float gethealth() const;
 		float getdamage() const;
@@ -55,7 +47,6 @@ class Character {
 		virtual ~Character() {
 			delete weapon1;
 			delete weapon2;
-			delete currentWeapon;
 		}
 };
 #endif

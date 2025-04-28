@@ -1,6 +1,39 @@
 #include "Game.hpp"
 
-void Game::select_Menus() {
+void Game::run() {
+    GameState currentstate = GameState::Start;
+    CharacterState currentcharacter = CharacterState::Archer_character;
+    WeaponState currentweapon;
+    Game::select_Menus(currentstate, currentcharacter, currentweapon);
+
+	const CharacterState player_character = currentcharacter;
+    WeaponType player_weapon = WeaponType::Weapon1;
+    Character* player;
+    if (player_character == Archer_character)
+    {
+		if (currentweapon == ShortBow_weapon)
+            player = new Archer("Leonidas", 100.f, 100.f, new ShortBow("Short_Bow", 10.f, 10.f), new LongBow("Long_Bow", 10.f, 10.f));
+        else
+            player = new Archer("Leonidas", 100.f, 100.f, new LongBow("Long_Bow", 10.f, 10.f), new ShortBow("Short_Bow", 10.f, 10.f));
+    }
+    else if (player_character == Warrior_character)
+    {
+        if(currentweapon == Sword_weapon)
+			player = new Warrior("Achilles", 100.f, 100.f, new Sword("Sword", 10.f, 10.f), new Axe("Axe", 10.f, 10.f));
+        else
+			player = new Warrior("Hercules", 100.f, 100.f, new Axe("Axe", 10.f, 10.f), new Sword("Sword", 10.f, 10.f));
+    }
+    else
+    {
+		if (currentweapon == IceStaff_weapon)
+			player = new Mage("Gandlaf", 100.f, 100.f, new IceStaff("Ice_Staff", 10.f, 10.f), new FireStaff("Fire_Staff", 10.f, 10.f));
+        else
+			player = new Mage("Gandalf", 100.f, 100.f, new FireStaff("Fire_Staff", 10.f, 10.f), new IceStaff("Ice_Staff", 10.f, 10.f));
+    }
+
+}
+
+void Game::select_Menus(GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon) {
     float scaleX, scaleY;
 
     RenderWindow window(sf::VideoMode({ 1200, 800 }), "BATTLE ARENA");
@@ -161,10 +194,6 @@ void Game::select_Menus() {
 	IceStaff_sprite.setScale({ scaleX, scaleY });
 	IceStaff_sprite.setPosition({ 700,250 });
 
-    GameState currentstate = GameState::Start;
-	CharacterState currentcharacter = CharacterState::Archer;
-    WeaponState currentweapon;
-
     Clock deltaClock;
     while (window.isOpen()) {
         while (const auto event = window.pollEvent()) {
@@ -271,8 +300,8 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
-        currentcharacter = Archer;
-		currentweapon = ShortBow;
+        currentcharacter = Archer_character;
+		currentweapon = ShortBow_weapon;
     }
 
     ImGui::End();
@@ -287,8 +316,8 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
-        currentcharacter = Warrior;
-		currentweapon = Axe;
+        currentcharacter = Warrior_character;
+		currentweapon = Axe_weapon;
     }
 
     ImGui::End();
@@ -302,8 +331,8 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
-        currentcharacter = Mage;
-		currentweapon = IceStaff;
+        currentcharacter = Mage_character;
+		currentweapon = IceStaff_weapon;
     }
 
     ImGui::End();
@@ -322,15 +351,15 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     ImGui::End();
 
-    if (currentcharacter == Archer)
+    if (currentcharacter == Archer_character)
     {
         window.draw(Archer_sprite);
     }
-    else if (currentcharacter == Warrior)
+    else if (currentcharacter == Warrior_character)
     {
 		window.draw(Warrior_sprite);
     }
-    else if (currentcharacter == Mage)
+    else if (currentcharacter == Mage_character)
     {
         window.draw(Mage_sprite);
 
@@ -338,15 +367,15 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 }
 
 void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite &Select_Weapon_Archer_sprite, Sprite &Select_Weapon_Warrior_sprite, Sprite &Select_Weapon_Mage_sprite, Sprite  &ShortBow_sprite, Sprite &LongBow_sprite, Sprite &Sword_sprite, Sprite &Axe_sprite, Sprite &IceStaff_sprite, Sprite &FireStaff_sprite) {
-	if (currentcharacter == Archer)
+	if (currentcharacter == Archer_character)
 	{
 		window.draw(Select_Weapon_Archer_sprite);
 	}
-	else if (currentcharacter == Warrior)
+	else if (currentcharacter == Warrior_character)
 	{
 		window.draw(Select_Weapon_Warrior_sprite);
 	}
-	else if (currentcharacter == Mage)
+	else if (currentcharacter == Mage_character)
 	{
 		window.draw(Select_Weapon_Mage_sprite);
 	}
@@ -386,18 +415,18 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
     ImGui::End();
 
 
-    if (currentcharacter == Archer)
+    if (currentcharacter == Archer_character)
     {
         buttonWidth = window.getSize().x * 0.348f;
         buttonHeight = window.getSize().y * 0.138f;
         ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.378f - buttonWidth / 2, window.getSize().y * 0.428f - buttonHeight / 2));
         ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
-        ImGui::Begin("SHORTBOW", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+        ImGui::Begin("ShortBow_weapon", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
-            currentweapon = ShortBow;
+            currentweapon = ShortBow_weapon;
         }
 
         ImGui::End();
@@ -408,16 +437,16 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
         ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.378f - buttonWidth / 2, window.getSize().y * 0.59f - buttonHeight / 2));
         ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
-        ImGui::Begin("LONGBOW", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+        ImGui::Begin("LongBow_weapon", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
-            currentweapon = LongBow;
+            currentweapon = LongBow_weapon;
         }
 
         ImGui::End();
     }
-    else if (currentcharacter == Warrior)
+    else if (currentcharacter == Warrior_character)
     {
         buttonWidth = window.getSize().x * 0.29f;
         buttonHeight = window.getSize().y * 0.138f;
@@ -428,7 +457,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
-            currentweapon = Axe;
+            currentweapon = Axe_weapon;
         }
 
         ImGui::End();
@@ -439,16 +468,16 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
         ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.352f - buttonWidth / 2, window.getSize().y * 0.585f - buttonHeight / 2));
         ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
-        ImGui::Begin("SWORD", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+        ImGui::Begin("Sword_weapon", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
-            currentweapon = Sword;
+            currentweapon = Sword_weapon;
         }
 
         ImGui::End();
     }
-    else if (currentcharacter == Mage)
+    else if (currentcharacter == Mage_character)
     {
         buttonWidth = window.getSize().x * 0.326f;
         buttonHeight = window.getSize().y * 0.138f;
@@ -459,7 +488,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
-            currentweapon = IceStaff;
+            currentweapon = IceStaff_weapon;
         }
 
         ImGui::End();
@@ -474,7 +503,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
-            currentweapon = FireStaff;
+            currentweapon = FireStaff_weapon;
         }
 
         ImGui::End();
@@ -494,34 +523,29 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
     ImGui::End();
 
-	if (currentweapon == ShortBow)
+	if (currentweapon == ShortBow_weapon)
 	{
         window.draw(ShortBow_sprite);
 	}
-	else if (currentweapon == LongBow)
+	else if (currentweapon == LongBow_weapon)
 	{
         window.draw(LongBow_sprite);
 	}
-	else if (currentweapon == Sword)
+	else if (currentweapon == Sword_weapon)
 	{
         window.draw(Sword_sprite);
 	}
-	else if (currentweapon == Axe)
+	else if (currentweapon == Axe_weapon)
 	{
         window.draw(Axe_sprite);
 	}
-	else if (currentweapon == IceStaff)
+	else if (currentweapon == IceStaff_weapon)
 	{
 		window.draw(IceStaff_sprite);
 	}
-	else if (currentweapon == FireStaff)
+	else if (currentweapon == FireStaff_weapon)
 	{
 		window.draw(FireStaff_sprite);
 	}
-
-}
-
-
-void Game::run() {
 
 }
