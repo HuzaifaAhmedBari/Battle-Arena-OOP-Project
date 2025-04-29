@@ -43,7 +43,7 @@ class Character {
 		virtual void takeDamage(float damage);
 		virtual void useSpecialAbility();
 		virtual void healing();
-		void movecharacter(Sprite &player_sprite, Direction &movement);
+		bool movecharacter(Sprite &player_sprite, Direction &movement, vector<vector<char>> &grid, int &y, int &x);
 		void useCurrentSpecialMove(Character* target);
 		void displayWeaponOptions() const;
 		void displayStats() const;

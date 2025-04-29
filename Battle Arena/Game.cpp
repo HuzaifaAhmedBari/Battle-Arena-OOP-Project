@@ -296,13 +296,14 @@ void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
 
 void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Background_sprite, Sprite& Goblin_sprite, Sprite& player_sprite, Sprite& show_sprite, Sprite& Weapon1_sprite, Sprite& Weapon2_sprite, GameState& currentstate, RectangleShape& background, CircleShape& circle, CircleShape& Weapon1_circle) {
     vector<vector<char>> grid(8, vector<char>(9, ' '));
-    grid[7][5] = 'P';
-    pair<int, int> player_position = { 7,5 };
+    grid[7][4] = 'P';
+    pair<int, int> player_position = { 7,4 };
     grid[0][5] = 'E';
     pair<int, int> enemy_position = { 0,5 };
     Enemy* enemy = new Goblin();
     Direction moving;
     Direction looking = Direction::Up;
+    bool turn = true;
 
     Clock deltaClock;
     while (window.isOpen()) {
@@ -314,25 +315,29 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
             }
             else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
-                if (keyPressed->scancode == sf::Keyboard::Scancode::W)
+                if (turn || !turn)
                 {
-                    moving = Direction::Up;
-                    player->movecharacter(player_sprite, moving);
-                }
-                else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
-                {
-                    moving = Direction::Down;
-                    player->movecharacter(player_sprite, moving);
-                }
-                else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
-                {
-                    moving = Direction::Left;
-                    player->movecharacter(player_sprite, moving);
-                }
-                else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
-                {
-                    moving = Direction::Right;
-                    player->movecharacter(player_sprite, moving);
+                    if (keyPressed->scancode == sf::Keyboard::Scancode::W)
+                    {
+                        moving = Direction::Up;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
+                    {
+                        moving = Direction::Down;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
+                    {
+                        moving = Direction::Left;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
+                    {
+                        moving = Direction::Right;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+
+                    }
                 }
             }
 

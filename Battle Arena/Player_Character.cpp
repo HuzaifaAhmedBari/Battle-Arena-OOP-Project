@@ -107,22 +107,42 @@ void Character::useSpecialAbility() {
 
 }
 
-void Character::movecharacter(Sprite &player_sprite, Direction &movement) {
+bool Character::movecharacter(Sprite &player_sprite, Direction &movement, vector<vector<char>> &grid, int &y, int &x) {
     if (movement == Up)
     {
+        if (y == 0 || grid[y-1][x] == 'E')
+            return true;
         player_sprite.move({ 0,-80 });
+        y--;
+        grid[x][y] = 'P';
+        return false;
     }
     else if (movement == Down)
     {
+        if (y == grid.size()-1 || grid[y + 1][x] == 'E')
+            return true;
         player_sprite.move({ 0,80 });
+        y++;
+        grid[x][y] = 'P';
+        return false;
     }
     else if (movement == Left)
     {
+        if (x == 0 || grid[y][x - 1] == 'E')
+            return true;
         player_sprite.move({ -90,0 });
+        x--;
+        grid[x][y] = 'P';
+        return false;
     }
     else
     {
+        if (x == grid[y].size()-1 || grid[y][x + 1] == 'E')
+            return true;
         player_sprite.move({ 90,0 });
+        x++;
+        grid[y][x] = 'P';
+        return false;
     }
 }
 
