@@ -4,11 +4,25 @@
 #ifndef Player_Character_HPP
 #define Player_Character_HPP
 
+#include "imgui.h"
+#include "imgui-SFML.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+
 #include "Weapon.hpp"
 #include "Status_Effect.hpp"
 
 using namespace std;
+using namespace sf;
+
+enum Direction {
+	Up,
+	Down,
+	Left,
+	Right
+};
 
 class Character {
 	protected:
@@ -28,8 +42,8 @@ class Character {
 		virtual void attack(Character *opponent);
 		virtual void takeDamage(float damage);
 		virtual void useSpecialAbility();
-		virtual void movecharacter();
 		virtual void healing();
+		void movecharacter(Sprite &player_sprite, Direction &movement);
 		void useCurrentSpecialMove(Character* target);
 		void displayWeaponOptions() const;
 		void displayStats() const;

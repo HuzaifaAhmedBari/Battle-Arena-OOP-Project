@@ -107,8 +107,23 @@ void Character::useSpecialAbility() {
 
 }
 
-void Character::movecharacter() {
-
+void Character::movecharacter(Sprite &player_sprite, Direction &movement) {
+    if (movement == Up)
+    {
+        player_sprite.move({ 0,-80 });
+    }
+    else if (movement == Down)
+    {
+        player_sprite.move({ 0,80 });
+    }
+    else if (movement == Left)
+    {
+        player_sprite.move({ -90,0 });
+    }
+    else
+    {
+        player_sprite.move({ 90,0 });
+    }
 }
 
 void Character::healing() {

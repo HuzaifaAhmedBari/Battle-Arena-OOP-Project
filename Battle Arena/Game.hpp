@@ -21,6 +21,8 @@
 #include "imgui-SFML.h"
 
 #include <iostream>
+#include <vector>
+#include <algorithm>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -64,8 +66,8 @@ class Game
         void select_character_screen(RenderWindow &window, GameState &currentstate, CharacterState &currrentcharacter, WeaponState &currenteweapon, Sprite &Select_Character_sprite, Sprite &Archer_sprite, Sprite &Warrior_sprite, Sprite &Mage_sprite);
         void select_weapon_screen(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite &Select_Weapon_Archer_sprite, Sprite &Select_Weapon_Warrior_sprite, Sprite &Select_Weapon_Mage_sprite, Sprite &ShortBow_sprite, Sprite &LongBow_sprite, Sprite &Sword_sprite, Sprite &Axe_sprite, Sprite &IceStaff_sprite, Sprite &FireStaff_sprite);
 
-        void levels(RenderWindow &window, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon1_sprite, Sprite &Weapon2_sprite, GameState &currentstate);
-        void level1(bool &initialized_level1);
+        void levels(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon1_sprite, Sprite &Weapon2_sprite, GameState &currentstate);
+        void level1(RenderWindow& window, Character *player, Sprite& Grid_Background_sprite, Sprite& Goblin_sprite, Sprite& player_sprite, Sprite& show_sprite, Sprite& Weapon1_sprite, Sprite& Weapon2_sprite, GameState& currentstate, RectangleShape &background, CircleShape &circle, CircleShape &Weapon1_circle);
 };
 
 #endif

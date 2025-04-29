@@ -264,12 +264,12 @@ void Game::run() {
 	Goblin_sprite.setScale({ 0.12f, 0.12f });
 	Goblin_sprite.setPosition({ 570.f, 30.f });
 
-    Game::levels(window, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon1_sprite, Weapon2_sprite, currentstate);
+    Game::levels(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon1_sprite, Weapon2_sprite, currentstate);
     
     delete player;
 }
 
-void Game::levels(RenderWindow &window, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon1_sprite, Sprite &Weapon2_sprite, GameState &currentstate) {
+void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon1_sprite, Sprite &Weapon2_sprite, GameState &currentstate) {
 	RectangleShape background(Vector2f(1200.f, 100.f));
 	background.setFillColor({24,26,25});
 	background.setPosition({0.f, 700.f});
@@ -282,7 +282,27 @@ void Game::levels(RenderWindow &window, Sprite &Grid_Background_sprite, Sprite &
 	weapon1_circle.setPosition({ 250.f, 680.f });
     weapon1_circle.setRadius(80.f);
 
-    bool initialized_level1 = false;
+    switch (currentstate) {
+    case Level1:
+        Game::level1(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon1_sprite, Weapon2_sprite, currentstate, background, circle, weapon1_circle);
+        break;
+    case Level2:
+        // level2();
+        break;
+    }
+
+
+}
+
+void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Background_sprite, Sprite& Goblin_sprite, Sprite& player_sprite, Sprite& show_sprite, Sprite& Weapon1_sprite, Sprite& Weapon2_sprite, GameState& currentstate, RectangleShape& background, CircleShape& circle, CircleShape& Weapon1_circle) {
+    vector<vector<char>> grid(8, vector<char>(9, ' '));
+    grid[7][5] = 'P';
+    pair<int, int> player_position = { 7,5 };
+    grid[0][5] = 'E';
+    pair<int, int> enemy_position = { 0,5 };
+    Enemy* enemy = new Goblin();
+    Direction moving;
+    Direction looking = Direction::Up;
 
     Clock deltaClock;
     while (window.isOpen()) {
@@ -292,43 +312,47 @@ void Game::levels(RenderWindow &window, Sprite &Grid_Background_sprite, Sprite &
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+            {
+                if (keyPressed->scancode == sf::Keyboard::Scancode::W)
+                {
+                    moving = Direction::Up;
+                    player->movecharacter(player_sprite, moving);
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
+                {
+                    moving = Direction::Down;
+                    player->movecharacter(player_sprite, moving);
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
+                {
+                    moving = Direction::Left;
+                    player->movecharacter(player_sprite, moving);
+                }
+                else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
+                {
+                    moving = Direction::Right;
+                    player->movecharacter(player_sprite, moving);
+                }
+            }
+
         }
 
         ImGui::SFML::Update(window, deltaClock.restart());
-        window.clear();
-        switch (currentstate) {
-		case Level1:
-			level1(initialized_level1);
-			break;
-		case Level2:
-			// level2();
-			break;
-        }
 
         window.clear();
 
-		window.draw(Grid_Background_sprite);
-		window.draw(background);
+        window.draw(Grid_Background_sprite);
+        window.draw(background);
         window.draw(circle);
-		window.draw(weapon1_circle);
+        window.draw(Weapon1_circle);
         window.draw(player_sprite);
-		window.draw(Goblin_sprite);
+        window.draw(Goblin_sprite);
         window.draw(show_sprite);
         window.draw(Weapon1_sprite);
 
         ImGui::SFML::Render(window);
         window.display();
-    }
-
-}
-
-void Game::level1(bool &initialized_level1) {
-    if (!initialized_level1) {
-        vector<vector<char>> grid(8, vector<char>(9, ' '));
-        grid[7][5] = 'P';
-        grid[0][5] = 'E';
-		Enemy* enemy = new Goblin();
-		initialized_level1 = true;
     }
 
 }
