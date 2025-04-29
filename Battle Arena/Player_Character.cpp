@@ -121,7 +121,7 @@ bool Character::movecharacter(Sprite &player_sprite, Direction &movement, vector
     {
         if (y == grid.size()-1 || grid[y + 1][x] == 'E')
             return true;
-        player_sprite.move({ 0,80 });
+        player_sprite.move({ 0,80 }); 
         y++;
         grid[x][y] = 'P';
         return false;
