@@ -14,7 +14,7 @@ class Archer : public Character {
 		void attackWithSpecialMove(Character& opponent);
 		void healing();
 		void movecharacter();
-
+		 
 
 		~Archer() override = default;
 };

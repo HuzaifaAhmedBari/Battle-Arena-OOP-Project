@@ -5,7 +5,13 @@
 
 #include "Player_Character.hpp"
 
+#include "imgui.h"
+#include "imgui-SFML.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+
 using namespace std;
 
 class Enemy {
@@ -26,7 +32,7 @@ Enemy(string name, string type, string weaponName, float health, float damage, i
     virtual void attack(Character* target);
     virtual void useSpecial(Character* target);
     virtual void heal();
-    virtual void move();
+    bool move(Sprite &goblin_sprite, vector<vector<char>> &grid, int &y, int &x, int &py, int &px);
     virtual void displayStats() const;
     virtual bool isAlive() const;
 

@@ -113,8 +113,9 @@ bool Character::movecharacter(Sprite &player_sprite, Direction &movement, vector
         if (y == 0 || grid[y-1][x] == 'E')
             return true;
         player_sprite.move({ 0,-80 });
+        grid[y][x] = ' ';
         y--;
-        grid[x][y] = 'P';
+        grid[y][x] = 'P';
         return false;
     }
     else if (movement == Down)
@@ -122,8 +123,9 @@ bool Character::movecharacter(Sprite &player_sprite, Direction &movement, vector
         if (y == grid.size()-1 || grid[y + 1][x] == 'E')
             return true;
         player_sprite.move({ 0,80 }); 
+        grid[y][x] = ' ';
         y++;
-        grid[x][y] = 'P';
+        grid[y][x] = 'P';
         return false;
     }
     else if (movement == Left)
@@ -131,8 +133,9 @@ bool Character::movecharacter(Sprite &player_sprite, Direction &movement, vector
         if (x == 0 || grid[y][x - 1] == 'E')
             return true;
         player_sprite.move({ -90,0 });
+        grid[y][x] = ' ';
         x--;
-        grid[x][y] = 'P';
+        grid[y][x] = 'P';
         return false;
     }
     else
@@ -140,6 +143,7 @@ bool Character::movecharacter(Sprite &player_sprite, Direction &movement, vector
         if (x == grid[y].size()-1 || grid[y][x + 1] == 'E')
             return true;
         player_sprite.move({ 90,0 });
+        grid[y][x] = ' ';
         x++;
         grid[y][x] = 'P';
         return false;

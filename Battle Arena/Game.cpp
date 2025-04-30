@@ -299,7 +299,7 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
     grid[7][4] = 'P';
     pair<int, int> player_position = { 7,4 };
     grid[0][5] = 'E';
-    pair<int, int> enemy_position = { 0,5 };
+    pair<int, int> enemy_position = { 0,4 };
     Enemy* enemy = new Goblin();
     Direction moving;
     Direction looking = Direction::Up;
@@ -315,7 +315,7 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
             }
             else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
-                if (turn || !turn)
+                if (turn)
                 {
                     if (keyPressed->scancode == sf::Keyboard::Scancode::W)
                     {
@@ -339,6 +339,10 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
 
                     }
                 }
+            }
+            else if (!turn)
+            {
+                turn = enemy->move(Goblin_sprite, grid, enemy_position.first, enemy_position.second, player_position.first, player_position.second);
             }
 
         }

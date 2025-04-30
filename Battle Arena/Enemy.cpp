@@ -1,45 +1,115 @@
 #include "Enemy.hpp"
 
 void Enemy::attack(Character* target) {
-    std::cout << name << " attacks with " << weaponName << " for " << damage << " damage.\n";
-    target->takeDamage(damage);
+   std::cout << name << " attacks with " << weaponName << " for " << damage << " damage.\n";
+   target->takeDamage(damage);
 }
 
 void Enemy::useSpecial(Character* target) {
-    if (specialUsesLeft <= 0) {
-        std::cout << name << " tried to use a special move, but has none left.\n";
-        return;
-    }
+   if (specialUsesLeft <= 0) {
+       std::cout << name << " tried to use a special move, but has none left.\n";
+       return;
+   }
 
-    std::cout << name << " uses a special move with " << weaponName << "! It's devastating!\n";
-    target->takeDamage(damage * 1.5); // 1.5x damage for special
-    specialUsesLeft--;
+   std::cout << name << " uses a special move with " << weaponName << "! It's devastating!\n";
+   target->takeDamage(damage * 1.5); // 1.5x damage for special
+   specialUsesLeft--;
 }
 
 void Enemy::heal() {
-    if (healsUsed >= level) {
-        std::cout << name << " has used all of their heals!\n";
-        return;
-    }
+   if (healsUsed >= level) {
+       std::cout << name << " has used all of their heals!\n";
+       return;
+   }
 
-    float healAmount = 15;
-    health += healAmount;
-    healsUsed++;
+   float healAmount = 15;
+   health += healAmount;
+   healsUsed++;
 
-    cout << name << " heals for " << healAmount << " HP. (" << healsUsed << "/" << level << " heals used)\n";
+   cout << name << " heals for " << healAmount << " HP. (" << healsUsed << "/" << level << " heals used)\n";
 }
 
+bool Enemy::move(Sprite& goblin_sprite, vector<vector<char>>& grid, int& y, int& x, int& py, int& px) {
+    const float TILE_SIZE = 90.f;
+    int gridHeight = grid.size();
+    int gridWidth = grid[0].size();
 
-void Enemy::move() {
-    cout << name << " shifts its position on the battlefield.\n";
+    // Step 1: If player is in the last grid cell and enemy overlaps that, move back
+    if (px == gridWidth - 1 && py == gridHeight - 1 && x == px && y == py) {
+        // Try moving enemy back
+        if (x > 0 && grid[y][x - 1] != '#') {
+            x--;
+            goblin_sprite.move({ -TILE_SIZE, 0.f });
+        }
+        else if (y > 0 && grid[y - 1][x] != '#') {
+            y--;
+            goblin_sprite.move({ 0.f, -TILE_SIZE });
+        }
+        else if (x < gridWidth - 1 && grid[y][x + 1] != '#') {
+            x++;
+            goblin_sprite.move({ TILE_SIZE, 0.f });
+        }
+        else if (y < gridHeight - 1 && grid[y + 1][x] != '#') {
+            y++;
+            goblin_sprite.move({ 0.f, TILE_SIZE });
+        }
+        return true;
+    }
+
+    // Step 2: If enemy overlaps player on any tile — move away
+    if (x == px && y == py) {
+        if (x > 0 && grid[y][x - 1] != '#') {
+            x--;
+            goblin_sprite.move({ -TILE_SIZE, 0.f });
+        }
+        else if (x + 1 < gridWidth && grid[y][x + 1] != '#') {
+            x++;
+            goblin_sprite.move({ TILE_SIZE, 0.f });
+        }
+        else if (y > 0 && grid[y - 1][x] != '#') {
+            y--;
+            goblin_sprite.move({ 0.f, -TILE_SIZE });
+        }
+        else if (y + 1 < gridHeight && grid[y + 1][x] != '#') {
+            y++;
+            goblin_sprite.move({ 0.f, TILE_SIZE });
+        }
+        return true;
+    }
+
+    // Step 3: Move toward the player
+    int dx = px - x;
+    int dy = py - y;
+
+    if (abs(dx) > abs(dy)) {
+        if (dx > 0 && x + 1 < gridWidth && grid[y][x + 1] != '#') {
+            x++;
+            goblin_sprite.move({ TILE_SIZE, 0.f });
+        }
+        else if (dx < 0 && x - 1 >= 0 && grid[y][x - 1] != '#') {
+            x--;
+            goblin_sprite.move({ -TILE_SIZE, 0.f });
+        }
+    }
+    else {
+        if (dy > 0 && y + 1 < gridHeight && grid[y + 1][x] != '#') {
+            y++;
+            goblin_sprite.move({ 0.f, TILE_SIZE });
+        }
+        else if (dy < 0 && y - 1 >= 0 && grid[y - 1][x] != '#') {
+            y--;
+            goblin_sprite.move({ 0.f, -TILE_SIZE });
+        }
+    }
+
+    return true;
 }
 
 void Enemy::displayStats() const {
-    cout << "=== Enemy: " << name << " ===\n";
-    cout << "Type: " << type << "\nHealth: " << health << "\nWeapon: " << weaponName << "\nSpecial Moves Left: " << specialUsesLeft << "\n";
+   cout << "=== Enemy: " << name << " ===\n";
+   cout << "Type: " << type << "\nHealth: " << health << "\nWeapon: " << weaponName << "\nSpecial Moves Left: " << specialUsesLeft << "\n";
 }
 
 bool Enemy::isAlive() const {
-    return health > 0;
+   return health > 0;
 }
-

@@ -14,7 +14,7 @@ class Mage : public Character {
 		void attackWithSpecialMove(Character& opponent);
 		void healing();
 		void movecharacter();
-
+		 
 		~Mage() override = default;
 };
 
