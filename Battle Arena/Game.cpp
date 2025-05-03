@@ -94,8 +94,8 @@ void Game::run() {
         cout << "Error Loading the Background" << endl;
     }
     Sprite ShortBow_sprite(ShortBow_texture);
-    scaleX = 200.f / ShortBow_texture.getSize().x;
-    scaleY = 250.f / ShortBow_texture.getSize().y;
+    scaleX = 230.f / ShortBow_texture.getSize().x;
+    scaleY = 270.f / ShortBow_texture.getSize().y;
     ShortBow_sprite.setScale({ scaleX, scaleY });
     ShortBow_sprite.setPosition({ 720,280 });
 
@@ -174,7 +174,43 @@ void Game::run() {
 	scaleX = 250.f / Goblin_texture.getSize().x;
 	scaleY = 350.f / Goblin_texture.getSize().y;
 	Goblin_sprite.setScale({ scaleX, scaleY });
+    Goblin_sprite.setScale({ 0.12f, 0.12f });
 	Goblin_sprite.setPosition({ 700,250 });
+
+    Texture Witch_texture;
+    if (!Witch_texture.loadFromFile("Witch.png"))
+    {
+        cout << "Error Loading the Background" << endl;
+    }
+    Sprite Witch_sprite(Witch_texture);
+    scaleX = 250.f / Witch_texture.getSize().x;
+    scaleY = 350.f / Witch_texture.getSize().y;
+    Witch_sprite.setScale({ scaleX, scaleY });
+    Witch_sprite.setScale({ 0.11f, 0.11f });
+    Witch_sprite.setPosition({ 700,250 });
+
+    Texture Circle_texture;
+    if (!Circle_texture.loadFromFile("Circle_PlaceHolders.png"))
+    {
+        cout << "Error Loading the Background" << endl;
+    }
+    Sprite Circle_sprite(Circle_texture);
+    scaleX = 250.f / Circle_texture.getSize().x;
+    scaleY = 250.f / Circle_texture.getSize().y;
+    Circle_sprite.setScale({ scaleX, scaleY });
+    Circle_sprite.setPosition({ -10,620 });
+
+    Texture Attack_Button_texture;
+    if (!Attack_Button_texture.loadFromFile("Attack_Button.png"))
+    {
+        cout << "Error Loading the Background" << endl;
+    }
+    Sprite Attack_Button_sprite(Attack_Button_texture);
+    scaleX = 250.f / Attack_Button_texture.getSize().x;
+    scaleY = 120.f / Attack_Button_texture.getSize().y;
+    Attack_Button_sprite.setScale({ scaleX, scaleY });
+    Attack_Button_sprite.setPosition({ 900,690 });
+
 
     RenderWindow window(sf::VideoMode({ 1200, 800 }), "BATTLE ARENA");
     window.setFramerateLimit(60);
@@ -215,10 +251,10 @@ void Game::run() {
     if (player_character == Archer_character)
     {
 		if (currentweapon == ShortBow_weapon)
-            player = new Archer("Leonidas", 100.f, 100.f, new ShortBow("Short_Bow", 3.f, 10.f));
+            player = new Archer("Leonidas", 100.f, 100.f, new ShortBow("Short_Bow", 3.f, 35.f));
         else
         {
-            player = new Archer("HawkEye", 100.f, 100.f, new LongBow("Long_Bow", 4.f, 10.f));
+            player = new Archer("HawkEye", 100.f, 100.f, new LongBow("Long_Bow", 4.f, 30.f));
 			Weapon_sprite = LongBow_sprite;
         }
     }
@@ -226,12 +262,12 @@ void Game::run() {
     {
         if (currentweapon == Sword_weapon)
         {
-            player = new Warrior("Achilles", 100.f, 100.f, new Sword("Sword", 1.f, 10.f));
+            player = new Warrior("Achilles", 100.f, 100.f, new Sword("Sword", 1.f, 40.f));
 			Weapon_sprite = Sword_sprite;
         }
         else
         {
-            player = new Warrior("Hercules", 100.f, 100.f, new Axe("Axe", 1.f, 10.f));
+            player = new Warrior("Hercules", 100.f, 100.f, new Axe("Axe", 1.f, 40.f));
 			Weapon_sprite = Axe_sprite;
         }
 		player_sprite = Warrior_sprite;
@@ -240,12 +276,12 @@ void Game::run() {
     {
         if (currentweapon == IceStaff_weapon)
         {
-            player = new Mage("Gandalf", 100.f, 100.f, new IceStaff("Ice_Staff", 3.f, 10.f));
+            player = new Mage("Gandalf", 100.f, 100.f, new IceStaff("Ice_Staff", 3.f, 30.f));
 			Weapon_sprite = IceStaff_sprite;
         }
         else
         {
-            player = new Mage("Gandalf", 100.f, 100.f, new FireStaff("Fire_Staff", 3.f, 10.f));
+            player = new Mage("Gandalf", 100.f, 100.f, new FireStaff("Fire_Staff", 3.f, 30.f));
 			Weapon_sprite = FireStaff_sprite;
         }
 		player_sprite = Mage_sprite;
@@ -256,61 +292,50 @@ void Game::run() {
 	Sprite show_sprite(player_sprite);
 	show_sprite.setScale({ 0.3f, 0.3f });
 	show_sprite.setPosition({ 30.f, 630.f });
-	Goblin_sprite.setScale({ 0.12f, 0.12f });
-	Goblin_sprite.setPosition({ 570.f, 30.f });
 
-    Game::levels(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon_sprite, currentstate);
+    Game::levels(window, player, Grid_Background_sprite, Goblin_sprite, Witch_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Attack_Button_sprite, currentstate);
     
     delete player;
 }
 
-void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon_sprite, GameState &currentstate) {
+void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &Witch_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon_sprite, Sprite &Circle_sprite, Sprite &Attack_Button_sprite, GameState &currentstate) {
 	RectangleShape background(Vector2f(1200.f, 100.f));
 	background.setFillColor({24,26,25});
 	background.setPosition({0.f, 700.f});
-	CircleShape circle(110.f);
-	circle.setFillColor({ 46,51,48 });
-	circle.setPosition({ 0.8f,645.f });
-    circle.setOutlineColor(Color::Black);
-	circle.setOutlineThickness(5.f);
-    CircleShape weapon1_circle = circle;
-	weapon1_circle.setPosition({ 250.f, 680.f });
-    weapon1_circle.setRadius(80.f);
 
-    switch (currentstate) {
-    case Level1:
-        Game::level1(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon_sprite, currentstate, background, circle, weapon1_circle);
-        break;
-    case Level2:
-        // level2();
-        break;
+    while (true)
+    {
+        switch (currentstate) {
+        case Level1:
+            Game::level1(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Attack_Button_sprite, currentstate, background);
+            break;
+        case Level2:
+            Game::level2(window, player, Grid_Background_sprite, Witch_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Attack_Button_sprite, currentstate, background);
+            break;
+        case Level3:
+			//Game::level1(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Attack_Button_sprite, currentstate, background);
+            break;
+        default:
+            window.close();
+            break;
+        }
     }
-
-
 }
 
-void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Background_sprite, Sprite& Goblin_sprite, Sprite& player_sprite, Sprite& show_sprite, Sprite& Weapon_sprite, GameState& currentstate, RectangleShape& background, CircleShape& circle, CircleShape& Weapon1_circle) {
+void Game::level1(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon_sprite, Sprite &Circle_sprite, Sprite &Attack_Button_sprite, GameState& currentstate, RectangleShape& background) {
+    Goblin_sprite.setPosition({ 570.f, 30.f });
+    Sprite weapon_circle_sprite(Circle_sprite);
+	weapon_circle_sprite.setScale({ 0.6f, 0.6f });
+	weapon_circle_sprite.setPosition({ 220.f, 650.f });
     vector<vector<char>> grid(8, vector<char>(9, ' '));
     grid[7][4] = 'P';
     pair<int, int> player_position = { 7,4 };
     grid[0][5] = 'E';
     pair<int, int> enemy_position = { 0,4 };
-    Enemy* enemy = new Witch(); 
+    Enemy* enemy = new Goblin(); 
     Direction moving;
     Direction looking = Direction::Up;
     bool turn = true, attacked=false;
-
-    ImGuiStyle& style = ImGui::GetStyle();
-    style.FrameRounding = 20.0f;
-    style.FramePadding = ImVec2(15, 10);
-    style.Colors[ImGuiCol_Button] = ImVec4(1, 1, 1, 1);
-    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.1f);
-    style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.2f);
-
-    float buttonWidth = window.getSize().x * 0.255f;
-    float buttonHeight = window.getSize().y * 0.125f;
-    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.495f - buttonWidth / 2, window.getSize().y * 0.47f - buttonHeight / 2));
-    ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
     Clock deltaClock;
     while (window.isOpen()) {
@@ -343,10 +368,9 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
                     {
                         moving = Direction::Right;
                         turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
-
                     }
                 }
-                else if (!attacked)
+                if (!attacked)
                 {
                     if (keyPressed->scancode == sf::Keyboard::Scancode::Up)
                     {
@@ -364,6 +388,13 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
                     {
                         looking = Direction::Right;
                     }
+					else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
+					{
+                        float damage_taken = player->attack(player_position.first, player_position.second, enemy_position.first, enemy_position.second, looking);
+                        enemy->takeDamage(damage_taken);
+                        attacked = true;
+                        turn = false;
+					}
                 }
             }
 
@@ -371,6 +402,18 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
 
         ImGui::SFML::Update(window, deltaClock.restart());
         window.clear();
+
+        ImGuiStyle& style = ImGui::GetStyle();
+        style.FrameRounding = 10.0f;
+        style.FramePadding = ImVec2(15, 10);
+        style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
+        style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.1f);
+        style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.2f);
+
+        float buttonWidth = window.getSize().x * 0.18f;
+        float buttonHeight = window.getSize().y * 0.105f;
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.842f - buttonWidth / 2, window.getSize().y * 0.925f - buttonHeight / 2));
+        ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
         ImGui::Begin("ATTACK", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
         ImGui::BeginDisabled(attacked);
@@ -382,11 +425,12 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
             attacked = true;
             turn = false;
         }
-        attacked = true;
 
         if (!turn && attacked)
         {
             turn = enemy->move(Goblin_sprite, grid, enemy_position.first, enemy_position.second, player_position.first, player_position.second);
+			float damageTaken = enemy->attack(player_position.first, player_position.second, enemy_position.first, enemy_position.second);
+			player->takeDamage(damageTaken);
             attacked = false;
         }
 
@@ -395,20 +439,170 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
 
         window.draw(Grid_Background_sprite);
         window.draw(background);
-        window.draw(circle);
-        window.draw(Weapon1_circle);
         window.draw(player_sprite);
         window.draw(Goblin_sprite);
-        window.draw(show_sprite);
-        window.draw(Weapon_sprite);
+		window.draw(Circle_sprite);
+		window.draw(weapon_circle_sprite);
+		window.draw(show_sprite);
+		window.draw(Weapon_sprite);
+        window.draw(Attack_Button_sprite);
+
 
         ImGui::SFML::Render(window);
         window.display();
 
         if (!enemy->isAlive())
+        {
+			currentstate = Level2;
             return;
+        }
+		if (!player->isAlive())
+		{
+			return;
+		}
     }
 
+}
+
+void Game::level2(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Witch_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite&Weapon_sprite, Sprite &Circle_sprite, Sprite &Attack_Button_sprite, GameState &currentstate, RectangleShape& background) {
+    player_sprite.setPosition({ 570.f, 565.f });
+    Witch_sprite.setPosition({ 570.f, 20.f });
+    Sprite weapon_circle_sprite(Circle_sprite);
+    weapon_circle_sprite.setScale({ 0.6f, 0.6f });
+    weapon_circle_sprite.setPosition({ 220.f, 650.f });
+    vector<vector<char>> grid(8, vector<char>(9, ' '));
+    grid[7][4] = 'P';
+    pair<int, int> player_position = { 7,4 };
+    grid[0][5] = 'E';
+    pair<int, int> enemy_position = { 0,4 };
+    Enemy* enemy = new Witch();
+    Direction moving;
+    Direction looking = Direction::Up;
+    bool turn = true, attacked = false;
+
+    Clock deltaClock;
+    while (window.isOpen()) {
+        while (const auto event = window.pollEvent()) {
+            ImGui::SFML::ProcessEvent(window, *event);
+
+            if (event->is<sf::Event::Closed>()) {
+                window.close();
+            }
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+            {
+                if (turn)
+                {
+                    if (keyPressed->scancode == sf::Keyboard::Scancode::W)
+                    {
+                        moving = Direction::Up;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
+                    {
+                        moving = Direction::Down;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
+                    {
+                        moving = Direction::Left;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
+                    {
+                        moving = Direction::Right;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                }
+                if (!attacked)
+                {
+                    if (keyPressed->scancode == sf::Keyboard::Scancode::Up)
+                    {
+                        looking = Direction::Up;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Down)
+                    {
+                        looking = Direction::Down;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Left)
+                    {
+                        looking = Direction::Left;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Right)
+                    {
+                        looking = Direction::Right;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
+                    {
+                        float damage_taken = player->attack(player_position.first, player_position.second, enemy_position.first, enemy_position.second, looking);
+                        enemy->takeDamage(damage_taken);
+                        attacked = true;
+                        turn = false;
+                    }
+                }
+            }
+
+        }
+
+        ImGui::SFML::Update(window, deltaClock.restart());
+        window.clear();
+
+        ImGuiStyle& style = ImGui::GetStyle();
+        style.FrameRounding = 10.0f;
+        style.FramePadding = ImVec2(15, 10);
+        style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
+        style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.1f);
+        style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.2f);
+
+        float buttonWidth = window.getSize().x * 0.18f;
+        float buttonHeight = window.getSize().y * 0.105f;
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.842f - buttonWidth / 2, window.getSize().y * 0.925f - buttonHeight / 2));
+        ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
+
+        ImGui::Begin("ATTACK", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+        ImGui::BeginDisabled(attacked);
+
+        if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
+        {
+            float damage_taken = player->attack(player_position.first, player_position.second, enemy_position.first, enemy_position.second, looking);
+            enemy->takeDamage(damage_taken);
+            attacked = true;
+            turn = false;
+        }
+
+        if (!turn && attacked)
+        {
+            turn = enemy->move(Witch_sprite, grid, enemy_position.first, enemy_position.second, player_position.first, player_position.second);
+            float damageTaken = enemy->attack(player_position.first, player_position.second, enemy_position.first, enemy_position.second);
+            player->takeDamage(damageTaken);
+            attacked = false;
+        }
+
+        ImGui::EndDisabled();
+        ImGui::End();
+
+        window.draw(Grid_Background_sprite);
+        window.draw(background);
+        window.draw(player_sprite);
+        window.draw(Witch_sprite);
+        window.draw(Circle_sprite);
+        window.draw(weapon_circle_sprite);
+        window.draw(show_sprite);
+        window.draw(Weapon_sprite);
+        window.draw(Attack_Button_sprite);
+
+
+        ImGui::SFML::Render(window);
+        window.display();
+
+        if (!enemy->isAlive())
+        {
+            return;
+        }
+        if (!player->isAlive())
+        {
+            return;
+        }
+    }
 }
 
 void Game::select_Menus(RenderWindow &window, GameState &currentstate, CharacterState &currentcharacter, WeaponState &currentweapon, Sprite &Start_BackGround_sprite, Sprite &Select_Character_sprite, Sprite &Archer_sprite, Sprite &Warrior_sprite, Sprite &Mage_sprite, Sprite &Select_Weapon_Archer_sprite, Sprite &Select_Weapon_Warrior_sprite, Sprite &Select_Weapon_Mage_sprite, Sprite &ShortBow_sprite, Sprite &LongBow_sprite, Sprite &Sword_sprite, Sprite &Axe_sprite, Sprite &IceStaff_sprite, Sprite &FireStaff_sprite) {

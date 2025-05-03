@@ -15,31 +15,30 @@
 using namespace std;
 
 class Enemy {
-protected:
-    string name;
-    string type;
-    string weaponName;
-    float health;
-    float damage;
-    int specialUsesLeft = 2;
-    int level = 1;
-    int healsUsed = 0;
+    protected:
+        string name;
+        string type;
+        string weaponName;
+        float health;
+        float damage;
+        int specialUsesLeft = 2;
+        int level = 1;
+        int healsUsed = 0;
 
-public:
-Enemy(string name, string type, string weaponName, float health, float damage, int level = 1)
-: name(name), type(type), weaponName(weaponName), health(health), damage(damage), level(level) {}
+    public:
+    Enemy(string name, string type, string weaponName, float health, float damage, int level = 1) : name(name), type(type), weaponName(weaponName), health(health), damage(damage), level(level) {}
 
-    virtual void attack(Character *target);
-    virtual void useSpecial(Character* target);
-    virtual void heal();
-    virtual bool move(Sprite &goblin_sprite, vector<vector<char>> &grid, int &y, int &x, int &py, int &px);
-    virtual void displayStats() const;
-    virtual bool isAlive() const;
-    void takeDamage(float damageTaken);
+        virtual float attack(int py, int px, int ey, int ex);
+        virtual void useSpecial(Character* target);
+        virtual void heal();
+        virtual bool move(Sprite &goblin_sprite, vector<vector<char>> &grid, int &y, int &x, int &py, int &px);
+        virtual void displayStats() const;
+        virtual bool isAlive() const;
+        void takeDamage(float damageTaken);
 
-    virtual void decideAction(Character* target) = 0;
+        virtual void decideAction(Character* target) = 0;
 
-    virtual ~Enemy() = default;
+        virtual ~Enemy() = default;
 };
 
 #endif

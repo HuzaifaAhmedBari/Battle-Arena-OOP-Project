@@ -71,8 +71,8 @@ void Character::updateStatus() {
         }
     }
 }
-void Character::takeDamage(float damage) {
-
+void Character::takeDamage(float damageTaken) {
+    health = health - damageTaken;
 }
 
 void Character::useSpecialAbility() {

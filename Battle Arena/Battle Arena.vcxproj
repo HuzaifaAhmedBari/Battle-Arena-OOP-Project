@@ -192,7 +192,9 @@
   <ItemGroup>
     <Image Include="..\..\..\..\Downloads\Sword.png" />
     <Image Include="Archer.png" />
+    <Image Include="Attack_Button.png" />
     <Image Include="Axe.png" />
+    <Image Include="Circle_PlaceHolders.png" />
     <Image Include="FireStaff.png" />
     <Image Include="IceStaff.png" />
     <Image Include="LongBow.png" />
@@ -204,6 +206,7 @@
     <Image Include="ShortBow.png" />
     <Image Include="StartBackground.jpg" />
     <Image Include="Warrior.png" />
+    <Image Include="Witch.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,8 +1,7 @@
 #include "Enemy.hpp"
 
-void Enemy::attack(Character* target) {
-   std::cout << name << " attacks with " << weaponName << " for " << damage << " damage.\n";
-   target->takeDamage(damage);
+float Enemy::attack(int py, int px, int ey, int ex) {
+    return 0.f;
 }
 
 void Enemy::takeDamage(float damageTaken) {
@@ -38,9 +37,7 @@ bool Enemy::move(Sprite& goblin_sprite, vector<vector<char>>& grid, int& y, int&
     int gridWidth = grid[0].size();
 	grid[y][x] = ' ';
 
-    // Step 1: If player is in the last grid cell and enemy overlaps that, move back
     if (px == gridWidth - 1 && py == gridHeight - 1 && x == px && y == py) {
-        // Try moving enemy back
         if (x > 0 && grid[y][x - 1] != 'P') {
             x--;
             goblin_sprite.move({ -90.f, 0.f });
@@ -57,10 +54,10 @@ bool Enemy::move(Sprite& goblin_sprite, vector<vector<char>>& grid, int& y, int&
             y++;
             goblin_sprite.move({ 0.f, 78.f });
         }
+		grid[y][x] = 'E';
         return true;
     }
 
-    // Step 2: If enemy overlaps player on any tile — move away
     if (x == px && y == py) {
         if (x > 0 && grid[y][x - 1] != 'P') {
             x--;
@@ -78,10 +75,10 @@ bool Enemy::move(Sprite& goblin_sprite, vector<vector<char>>& grid, int& y, int&
             y++;
             goblin_sprite.move({ 0.f, 78.f });
         }
+        grid[y][x] = 'E';
         return true;
     }
 
-    // Step 3: Move toward the player
     int dx = px - x;
     int dy = py - y;
 

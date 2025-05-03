@@ -188,5 +188,14 @@
     <Image Include="FireStaff.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Attack_Button.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Circle_PlaceHolders.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Witch.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

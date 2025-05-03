@@ -2,13 +2,21 @@
 #include <cstdlib>
 
 void Witch::decideAction(Character* target) {
-    if (health < 30) {
+    /*if (health < 30) {
         heal();
     } else if (specialUsesLeft > 0) {
         useSpecial(target);
     } else {
         attack(target);
-    }
+    }*/
+}
+
+float Witch::attack(int py, int px, int ey, int ex) {
+    if (py == ey && abs(px - ex) <= 3)
+        return damage;
+    else if (px == ex && abs(py - ey) <= 3)
+        return damage;
+    return 0.f;
 }
 
 bool Witch::move(Sprite& goblin_sprite, vector<vector<char>>& grid, int& y, int& x, int& py, int& px) {
@@ -16,7 +24,6 @@ bool Witch::move(Sprite& goblin_sprite, vector<vector<char>>& grid, int& y, int&
     int gridWidth = grid[0].size();
     grid[y][x] = ' ';
 
-    // Step 1: If player is in the last grid cell and enemy overlaps that, move back
     if (px == gridWidth - 1 && py == gridHeight - 1 && x == px && y == py) {
         if (x > 0 && grid[y][x - 1] != 'P') {
             x--;
@@ -38,7 +45,6 @@ bool Witch::move(Sprite& goblin_sprite, vector<vector<char>>& grid, int& y, int&
         return true;
     }
 
-    // Step 2: If enemy overlaps player on any tile — move away
     if (x == px && y == py) {
         if (x > 0 && grid[y][x - 1] != 'P') {
             x--;
@@ -60,19 +66,15 @@ bool Witch::move(Sprite& goblin_sprite, vector<vector<char>>& grid, int& y, int&
         return true;
     }
 
-    // Step 3: Custom move logic
-
+    
     int dx = px - x;
     int dy = py - y;
 
-    // Custom restriction: same row, but enemy must stay at least 2 tiles away in x
     if (y == py && abs(x - px) <= 2) {
-        // Too close in X while Y is same — don't move
         grid[y][x] = 'E';
         return true;
     }
 
-    // Default chase logic
     if (abs(dx) > abs(dy)) {
         if (dx > 0 && x + 1 < gridWidth && grid[y][x + 1] != 'P') {
             x++;
