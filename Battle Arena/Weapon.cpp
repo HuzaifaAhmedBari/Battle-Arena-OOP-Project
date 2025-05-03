@@ -1,7 +1,7 @@
 #include "Weapon.hpp"
 
-void Weapon::attack() {
-
+float Weapon::attack(int py, int px, int ey, int ex, Direction look) {
+    return 0.f;
 }
 void Weapon::displayStats() const {
 	cout << "Weapon Name: " << name << endl;

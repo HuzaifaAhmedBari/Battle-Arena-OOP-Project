@@ -8,28 +8,8 @@
 bool Character::isAlive() const {
 	return health > 0;
 }
-void Character::displayWeaponOptions() const {
-    std::cout << "\nAvailable Weapons:\n";
-    if (weapon1) {
-        std::cout << "1. " << weapon1->getname();
-        if (weapon1->isSpecialUnlocked()) std::cout << " (Special Ready)";
-        std::cout << "\n";
-    }
-    if (weapon2) {
-        std::cout << "2. " << weapon2->getname();
-        if (weapon2->isSpecialUnlocked()) std::cout << " (Special Ready)";
-        std::cout << "\n";
-    }
-}
-void Character::attack(Character *opponent) {
-    /*if (!currentWeapon) {
-        std::cout << "No weapon equipped! Cannot attack.\n";
-        return;
-    }
-
-    float dmg = currentWeapon->getdamage();
-    std::cout << "Attacking with " << currentWeapon->getname() << " for " << dmg << " damage!\n";
-    target->takeDamage(dmg);*/
+float Character::attack(int py, int px, int ey, int ex, Direction look) {
+	return weapon->attack(py, px, ey, ex, look);
 }
 void Character::useCurrentSpecialMove(Character *target) {
     /*if (!currentWeapon) {
@@ -51,23 +31,15 @@ void Character::displayStats() const {
 	cout << "Damage: " << damage << endl;
 }
 
-void Character::useWeapon1SpecialMove(Character* target) {
-    if (!weapon1 || !weapon1->canUseSpecial()) {
+void Character::useWeaponSpecialMove(Character* target) {
+    if (!weapon || !weapon->canUseSpecial()) {
         std::cout << "Weapon 1's special move is not available.\n";
         return;
     }
 
-    weapon1->useSpecialMove(target);
+    weapon->useSpecialMove(target);
 }
 
-void Character::useWeapon2SpecialMove(Character* target) {
-    if (!weapon2 || !weapon2->canUseSpecial()) {
-        std::cout << "Weapon 2's special move is not available.\n";
-        return;
-    }
-
-    weapon2->useSpecialMove(target);
-}
 void Character::applyStatus(StatusEffect effect, int duration) {
     status = effect;
     statusDuration = duration;

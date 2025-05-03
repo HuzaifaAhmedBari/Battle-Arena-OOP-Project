@@ -5,8 +5,14 @@
 
 #include <iostream>
 using namespace std;
-
 class Character;
+
+enum Direction {
+	Up,
+	Down,
+	Left,
+	Right
+};
 
 class Weapon
 {
@@ -23,7 +29,7 @@ class Weapon
 		virtual void displayStats() const;
 		virtual void useSpecialMove(Character* target) = 0;
 		virtual void levelUpEffect(int playerLevel);
-		virtual void attack();
+		virtual float attack(int py, int px, int ey, int ex, Direction look);
     	bool isSpecialUnlocked() const;
 		bool canUseSpecial() const;
 		void reduceSpecialUse();

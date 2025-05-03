@@ -2,8 +2,16 @@
 #include "Status_Effect.hpp"
 #include "Player_Character.hpp"
 
-void IceStaff::attack() {
-
+float IceStaff::attack(int py, int px, int ey, int ex, Direction look) {
+    if (look == Direction::Up && px == ex && py - ey <= 4 && py - ey >= 0)
+        return damage;
+    else if (look == Direction::Down && px == ex && ey - py <= 4 && ey - py >= 0)
+        return damage;
+    else if (look == Direction::Left && py == ey && px - ex <= 4 && px - ex >= 0)
+        return damage;
+    else if (look == Direction::Right && py == ey && ex - px <= 4 && ex - px >= 0)
+        return damage;
+    return 0.f;
 }
 
 void IceStaff::displayStats() const {

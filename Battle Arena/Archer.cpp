@@ -4,11 +4,10 @@ void Archer::attack(Character& opponent) {
     
 }
 void Archer::attackWithSpecialMove(Character& opponent) {
-    if (weapon1 && weapon1->isSpecialUnlocked()) {
-        weapon1->useSpecialMove(&opponent);
-    } else if (weapon2 && weapon2->isSpecialUnlocked()) {
-        weapon2->useSpecialMove(&opponent);
-    } else {
+    if (weapon && weapon->isSpecialUnlocked()) {
+        weapon->useSpecialMove(&opponent);
+    }
+    else {
         std::cout << "No special move available for " << getname() << ".\n\n";
     }
 }

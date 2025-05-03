@@ -10,7 +10,7 @@ void Game::run() {
         cout << "Error Loading the Background" << endl;
     }
     Sprite Start_BackGround_sprite(Start_BackGround_texture);
-    scaleX = 1200.f / Start_BackGround_texture.getSize().x;
+    scaleX = 1200.f / Start_BackGround_texture.getSize().x; 
     scaleY = 800.f / Start_BackGround_texture.getSize().y;
     Start_BackGround_sprite.setScale({ scaleX, scaleY });
 
@@ -208,34 +208,30 @@ void Game::run() {
 	const CharacterState player_character = currentcharacter;
     WeaponType player_weapon = WeaponType::Weapon1;
     Sprite player_sprite(Archer_sprite);
-	Sprite Weapon1_sprite(ShortBow_sprite);
-	Sprite Weapon2_sprite(LongBow_sprite);
+	Sprite Weapon_sprite(ShortBow_sprite);
     Character* player;
 
     if (player_character == Archer_character)
     {
 		if (currentweapon == ShortBow_weapon)
-            player = new Archer("Leonidas", 100.f, 100.f, new ShortBow("Short_Bow", 10.f, 10.f), new LongBow("Long_Bow", 10.f, 10.f));
+            player = new Archer("Leonidas", 100.f, 100.f, new ShortBow("Short_Bow", 3.f, 10.f));
         else
         {
-            player = new Archer("Leonidas", 100.f, 100.f, new LongBow("Long_Bow", 10.f, 10.f), new ShortBow("Short_Bow", 10.f, 10.f));
-			Weapon1_sprite = LongBow_sprite;
-			Weapon2_sprite = ShortBow_sprite;
+            player = new Archer("HawkEye", 100.f, 100.f, new LongBow("Long_Bow", 4.f, 10.f));
+			Weapon_sprite = LongBow_sprite;
         }
     }
     else if (player_character == Warrior_character)
     {
         if (currentweapon == Sword_weapon)
         {
-            player = new Warrior("Achilles", 100.f, 100.f, new Sword("Sword", 10.f, 10.f), new Axe("Axe", 10.f, 10.f));
-			Weapon1_sprite = Sword_sprite;
-			Weapon2_sprite = Axe_sprite;
+            player = new Warrior("Achilles", 100.f, 100.f, new Sword("Sword", 1.f, 10.f));
+			Weapon_sprite = Sword_sprite;
         }
         else
         {
-            player = new Warrior("Hercules", 100.f, 100.f, new Axe("Axe", 10.f, 10.f), new Sword("Sword", 10.f, 10.f));
-			Weapon1_sprite = Axe_sprite;
-			Weapon2_sprite = Sword_sprite;
+            player = new Warrior("Hercules", 100.f, 100.f, new Axe("Axe", 1.f, 10.f));
+			Weapon_sprite = Axe_sprite;
         }
 		player_sprite = Warrior_sprite;
     }
@@ -243,15 +239,13 @@ void Game::run() {
     {
         if (currentweapon == IceStaff_weapon)
         {
-            player = new Mage("Gandalf", 100.f, 100.f, new IceStaff("Ice_Staff", 10.f, 10.f), new FireStaff("Fire_Staff", 10.f, 10.f));
-			Weapon1_sprite = IceStaff_sprite;
-			Weapon2_sprite = FireStaff_sprite;
+            player = new Mage("Gandalf", 100.f, 100.f, new IceStaff("Ice_Staff", 3.f, 10.f));
+			Weapon_sprite = IceStaff_sprite;
         }
         else
         {
-            player = new Mage("Gandalf", 100.f, 100.f, new FireStaff("Fire_Staff", 10.f, 10.f), new IceStaff("Ice_Staff", 10.f, 10.f));
-			Weapon1_sprite = FireStaff_sprite;
-			Weapon2_sprite = IceStaff_sprite;
+            player = new Mage("Gandalf", 100.f, 100.f, new FireStaff("Fire_Staff", 3.f, 10.f));
+			Weapon_sprite = FireStaff_sprite;
         }
 		player_sprite = Mage_sprite;
     }
@@ -264,12 +258,12 @@ void Game::run() {
 	Goblin_sprite.setScale({ 0.12f, 0.12f });
 	Goblin_sprite.setPosition({ 570.f, 30.f });
 
-    Game::levels(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon1_sprite, Weapon2_sprite, currentstate);
+    Game::levels(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon_sprite, currentstate);
     
     delete player;
 }
 
-void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon1_sprite, Sprite &Weapon2_sprite, GameState &currentstate) {
+void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon_sprite, GameState &currentstate) {
 	RectangleShape background(Vector2f(1200.f, 100.f));
 	background.setFillColor({24,26,25});
 	background.setPosition({0.f, 700.f});
@@ -284,7 +278,7 @@ void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
 
     switch (currentstate) {
     case Level1:
-        Game::level1(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon1_sprite, Weapon2_sprite, currentstate, background, circle, weapon1_circle);
+        Game::level1(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon_sprite, currentstate, background, circle, weapon1_circle);
         break;
     case Level2:
         // level2();
@@ -294,7 +288,7 @@ void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
 
 }
 
-void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Background_sprite, Sprite& Goblin_sprite, Sprite& player_sprite, Sprite& show_sprite, Sprite& Weapon1_sprite, Sprite& Weapon2_sprite, GameState& currentstate, RectangleShape& background, CircleShape& circle, CircleShape& Weapon1_circle) {
+void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Background_sprite, Sprite& Goblin_sprite, Sprite& player_sprite, Sprite& show_sprite, Sprite& Weapon_sprite, GameState& currentstate, RectangleShape& background, CircleShape& circle, CircleShape& Weapon1_circle) {
     vector<vector<char>> grid(8, vector<char>(9, ' '));
     grid[7][4] = 'P';
     pair<int, int> player_position = { 7,4 };
@@ -303,7 +297,19 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
     Enemy* enemy = new Goblin();
     Direction moving;
     Direction looking = Direction::Up;
-    bool turn = true;
+    bool turn = true, attacked=false;
+
+    ImGuiStyle& style = ImGui::GetStyle();
+    style.FrameRounding = 20.0f;
+    style.FramePadding = ImVec2(15, 10);
+    style.Colors[ImGuiCol_Button] = ImVec4(1, 1, 1, 1);
+    style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.1f);
+    style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.2f);
+
+    float buttonWidth = window.getSize().x * 0.255f;
+    float buttonHeight = window.getSize().y * 0.125f;
+    ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.495f - buttonWidth / 2, window.getSize().y * 0.47f - buttonHeight / 2));
+    ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
 
     Clock deltaClock;
     while (window.isOpen()) {
@@ -339,17 +345,51 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
 
                     }
                 }
-            }
-            else if (!turn)
-            {
-                turn = enemy->move(Goblin_sprite, grid, enemy_position.first, enemy_position.second, player_position.first, player_position.second);
+                else if (!attacked)
+                {
+                    if (keyPressed->scancode == sf::Keyboard::Scancode::Up)
+                    {
+                        looking = Direction::Up;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Down)
+                    {
+                        looking = Direction::Down;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Left)
+                    {
+                        looking = Direction::Left;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Right)
+                    {
+                        looking = Direction::Right;
+                    }
+                }
             }
 
         }
 
         ImGui::SFML::Update(window, deltaClock.restart());
-
         window.clear();
+
+        ImGui::Begin("ATTACK", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+        ImGui::BeginDisabled(attacked);
+
+        if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
+        {
+            float damage_taken = player->attack(player_position.first, player_position.second, enemy_position.first, enemy_position.second, looking);
+            enemy->takeDamage(damage_taken);
+            attacked = true;
+            turn = false;
+        }
+
+        if (!turn && attacked)
+        {
+            turn = enemy->move(Goblin_sprite, grid, enemy_position.first, enemy_position.second, player_position.first, player_position.second);
+            attacked = false;
+        }
+
+        ImGui::EndDisabled();
+        ImGui::End();
 
         window.draw(Grid_Background_sprite);
         window.draw(background);
@@ -358,10 +398,13 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
         window.draw(player_sprite);
         window.draw(Goblin_sprite);
         window.draw(show_sprite);
-        window.draw(Weapon1_sprite);
+        window.draw(Weapon_sprite);
 
         ImGui::SFML::Render(window);
         window.display();
+
+        if (!enemy->isAlive())
+            return;
     }
 
 }

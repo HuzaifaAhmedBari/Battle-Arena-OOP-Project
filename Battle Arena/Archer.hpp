@@ -8,7 +8,7 @@ class Archer : public Character {
 	protected:
 
 	public:
-		Archer(string name, float health, float damage, Weapon *weapon1, Weapon *weapon2): Character(name, health, damage, weapon1, weapon2) {}
+		Archer(string name, float health, float damage, Weapon *weapon): Character(name, health, damage, weapon) {}
 		
 		void attack(Character& opponent);
 		void attackWithSpecialMove(Character& opponent);

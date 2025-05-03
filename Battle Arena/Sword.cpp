@@ -1,8 +1,16 @@
 #include "Sword.hpp"
 #include "Player_Character.hpp"
 
-void Sword::attack() {
-
+float Sword::attack(int py, int px, int ey, int ex, Direction look) {
+    if (look == Direction::Up && px == ex && py - ey <= 1 && py - ey >= 0)
+        return damage;
+    else if (look == Direction::Down && px == ex && ey - py <= 1 && ey - py >= 0)
+        return damage;
+    else if (look == Direction::Left && py == ey && px - ex <= 1 && px - ex >= 0)
+        return damage;
+    else if (look == Direction::Right && py == ey && ex - px <= 1 && ex - px >= 0)
+        return damage;
+    return 0.f;
 }
 
 void Sword::displayStats() const {
