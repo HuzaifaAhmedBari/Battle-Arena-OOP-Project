@@ -20,6 +20,7 @@ using namespace sf;
 class Character {
 	protected:
 		string name;
+		const float maxhealth;
 		float health, damage;
 		int level = 1;
 		string type;
@@ -29,7 +30,7 @@ class Character {
 		int statusDuration = 0;
 
 	public:
-		Character(string name, float health, float damage, Weapon* weapon) : name(name), health(health), damage(damage), weapon(weapon) {}
+		Character(string name, float health, float damage, Weapon* weapon) : name(name), health(health), damage(damage), weapon(weapon), maxhealth(health) {}
 
 		virtual void takeDamage(float damage);
 		virtual void useSpecialAbility();
@@ -45,6 +46,7 @@ class Character {
 		void sethealth(float health);
 		string getname() const;
 		float gethealth() const;
+		float getmaxhealth() const;
 		float getdamage() const;
 
 		virtual ~Character() {

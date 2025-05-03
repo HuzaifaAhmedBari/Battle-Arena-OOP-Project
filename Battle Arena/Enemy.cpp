@@ -114,3 +114,9 @@ void Enemy::displayStats() const {
 bool Enemy::isAlive() const {
    return health > 0;
 }
+float Enemy::gethealth() const {
+	return health;
+}
+float Enemy::getmaxHealth() const {
+	return maxHealth;
+}

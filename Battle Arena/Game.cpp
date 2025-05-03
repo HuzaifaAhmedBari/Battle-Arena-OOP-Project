@@ -200,6 +200,17 @@ void Game::run() {
     Circle_sprite.setScale({ scaleX, scaleY });
     Circle_sprite.setPosition({ -10,620 });
 
+    Texture Square_texture;
+    if (!Square_texture.loadFromFile("Square_PlaceHolder.png"))
+    {
+        cout << "Error Loading the Background" << endl;
+    }
+    Sprite Square_sprite(Square_texture);
+    scaleX = 80.f / Square_texture.getSize().x;
+    scaleY = 80.f / Square_texture.getSize().y;
+    Square_sprite.setScale({ scaleX, scaleY });
+    Square_sprite.setPosition({ 1018,258 });
+
     Texture Attack_Button_texture;
     if (!Attack_Button_texture.loadFromFile("Attack_Button.png"))
     {
@@ -228,19 +239,19 @@ void Game::run() {
     Game::select_Menus(window, currentstate, currentcharacter, currentweapon, Start_BackGround_sprite, Select_Character_sprite, Archer_sprite, Warrior_sprite, Mage_sprite, Select_Weapon_Archer_sprite, Select_Weapon_Warrior_sprite, Select_Weapon_Mage_sprite, ShortBow_sprite, LongBow_sprite, Sword_sprite, Axe_sprite, IceStaff_sprite, FireStaff_sprite);
 
 	LongBow_sprite.setScale({ 0.2f, 0.2f });
-    LongBow_sprite.setPosition({ 270.f, 690.f });
+    LongBow_sprite.setPosition({ 450.f, 690.f });
 	ShortBow_sprite.setScale({ 0.2f, 0.2f });
-	ShortBow_sprite.setPosition({ 280.f, 690.f });
+	ShortBow_sprite.setPosition({ 460.f, 690.f });
 
 	Sword_sprite.setScale({ 0.1f, 0.06f });
-	Sword_sprite.setPosition({ 275.f, 680.f });
+	Sword_sprite.setPosition({ 455.f, 680.f });
 	Axe_sprite.setScale({ 0.05f, 0.05f });
-	Axe_sprite.setPosition({ 270.f, 690.f });
+	Axe_sprite.setPosition({ 450.f, 690.f });
 
 	IceStaff_sprite.setScale({ 0.35f, 0.35f });
-	IceStaff_sprite.setPosition({ 265.f, 680.f });
+	IceStaff_sprite.setPosition({ 445.f, 680.f });
 	FireStaff_sprite.setScale({ 0.15f, 0.15f });
-	FireStaff_sprite.setPosition({ 275.f, 680.f });
+	FireStaff_sprite.setPosition({ 455.f, 680.f });
 
 	const CharacterState player_character = currentcharacter;
     WeaponType player_weapon = WeaponType::Weapon1;
@@ -251,10 +262,10 @@ void Game::run() {
     if (player_character == Archer_character)
     {
 		if (currentweapon == ShortBow_weapon)
-            player = new Archer("Leonidas", 100.f, 100.f, new ShortBow("Short_Bow", 3.f, 35.f));
+            player = new Archer("Leonidas", 150.f, 100.f, new ShortBow("Short_Bow", 3.f, 35.f));
         else
         {
-            player = new Archer("HawkEye", 100.f, 100.f, new LongBow("Long_Bow", 4.f, 30.f));
+            player = new Archer("HawkEye", 150.f, 100.f, new LongBow("Long_Bow", 4.f, 30.f));
 			Weapon_sprite = LongBow_sprite;
         }
     }
@@ -262,12 +273,12 @@ void Game::run() {
     {
         if (currentweapon == Sword_weapon)
         {
-            player = new Warrior("Achilles", 100.f, 100.f, new Sword("Sword", 1.f, 40.f));
+            player = new Warrior("Achilles", 200.f, 100.f, new Sword("Sword", 1.f, 40.f));
 			Weapon_sprite = Sword_sprite;
         }
         else
         {
-            player = new Warrior("Hercules", 100.f, 100.f, new Axe("Axe", 1.f, 40.f));
+            player = new Warrior("Hercules", 200.f, 100.f, new Axe("Axe", 1.f, 40.f));
 			Weapon_sprite = Axe_sprite;
         }
 		player_sprite = Warrior_sprite;
@@ -276,12 +287,12 @@ void Game::run() {
     {
         if (currentweapon == IceStaff_weapon)
         {
-            player = new Mage("Gandalf", 100.f, 100.f, new IceStaff("Ice_Staff", 3.f, 30.f));
+            player = new Mage("Gandalf", 150.f, 100.f, new IceStaff("Ice_Staff", 3.f, 30.f));
 			Weapon_sprite = IceStaff_sprite;
         }
         else
         {
-            player = new Mage("Gandalf", 100.f, 100.f, new FireStaff("Fire_Staff", 3.f, 30.f));
+            player = new Mage("Gandalf", 150.f, 100.f, new FireStaff("Fire_Staff", 3.f, 30.f));
 			Weapon_sprite = FireStaff_sprite;
         }
 		player_sprite = Mage_sprite;
@@ -293,28 +304,38 @@ void Game::run() {
 	show_sprite.setScale({ 0.3f, 0.3f });
 	show_sprite.setPosition({ 30.f, 630.f });
 
-    Game::levels(window, player, Grid_Background_sprite, Goblin_sprite, Witch_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Attack_Button_sprite, currentstate);
+    Game::levels(window, player, Grid_Background_sprite, Goblin_sprite, Witch_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Square_sprite, Attack_Button_sprite, currentstate);
     
     delete player;
 }
 
-void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &Witch_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon_sprite, Sprite &Circle_sprite, Sprite &Attack_Button_sprite, GameState &currentstate) {
+void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &Witch_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon_sprite, Sprite &Circle_sprite, Sprite &Square_sprite, Sprite &Attack_Button_sprite, GameState &currentstate) {
 	RectangleShape background(Vector2f(1200.f, 100.f));
-	background.setFillColor({24,26,25});
+	background.setFillColor({38,33,27});
 	background.setPosition({0.f, 700.f});
 
     while (true)
     {
         switch (currentstate) {
         case Level1:
-            Game::level1(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Attack_Button_sprite, currentstate, background);
+			player->sethealth(player->getmaxhealth());
+            Game::level1(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Square_sprite, Attack_Button_sprite, currentstate, background);
             break;
         case Level2:
-            Game::level2(window, player, Grid_Background_sprite, Witch_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Attack_Button_sprite, currentstate, background);
+            player->sethealth(player->getmaxhealth());
+            Game::level2(window, player, Grid_Background_sprite, Witch_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Square_sprite,Attack_Button_sprite, currentstate, background);
             break;
         case Level3:
-			//Game::level1(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Attack_Button_sprite, currentstate, background);
+            window.close();
+            return;
+			//Game::level3(window, player, Grid_Background_sprite, Goblin_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Attack_Button_sprite, currentstate, background);
             break;
+        case Level4:
+			window.close();
+			return;
+        case Level5:
+			window.close();
+			return;
         default:
             window.close();
             break;
@@ -322,11 +343,14 @@ void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
     }
 }
 
-void Game::level1(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon_sprite, Sprite &Circle_sprite, Sprite &Attack_Button_sprite, GameState& currentstate, RectangleShape& background) {
+void Game::level1(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Goblin_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon_sprite, Sprite &Circle_sprite, Sprite &Square_sprite, Sprite &Attack_Button_sprite, GameState& currentstate, RectangleShape& background) {
     Goblin_sprite.setPosition({ 570.f, 30.f });
     Sprite weapon_circle_sprite(Circle_sprite);
 	weapon_circle_sprite.setScale({ 0.6f, 0.6f });
-	weapon_circle_sprite.setPosition({ 220.f, 650.f });
+	weapon_circle_sprite.setPosition({ 400.f, 650.f });
+	Sprite show_enemy(Goblin_sprite);
+	show_enemy.setScale({ 0.09f, 0.09f });
+	show_enemy.setPosition({ 1035.f, 270.f });
     vector<vector<char>> grid(8, vector<char>(9, ' '));
     grid[7][4] = 'P';
     pair<int, int> player_position = { 7,4 };
@@ -437,6 +461,37 @@ void Game::level1(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
         ImGui::EndDisabled();
         ImGui::End();
 
+        ImVec4 barColor;
+        float hp = player->gethealth() / player->getmaxhealth();
+        if (hp > 0.6f)
+            barColor = ImVec4(0.0f, 1.0f, 0.0f, 0.7f);
+        else if (hp > 0.3f)
+            barColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+        else
+            barColor = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.38f / 2, window.getSize().y * 1.78f / 2));
+        ImGui::Begin("Player HP", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+        ImGui::Text("HP:");
+		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, barColor);
+        ImGui::ProgressBar(hp, ImVec2(150.f, 20.f));
+        ImGui::PopStyleColor();
+        ImGui::End();
+
+		hp = enemy->gethealth() / enemy->getmaxHealth();
+        if (hp > 0.6f)
+            barColor = ImVec4(0.0f, 1.0f, 0.0f, 0.7f);
+        else if (hp > 0.3f)
+            barColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+        else
+            barColor = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 1.815f / 2, window.getSize().y * 0.67f / 2));
+        ImGui::Begin("Enemy HP", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+        ImGui::Text("HP:");
+        ImGui::PushStyleColor(ImGuiCol_PlotHistogram, barColor);
+        ImGui::ProgressBar(hp, ImVec2(100.f, 20.f));
+        ImGui::PopStyleColor();
+        ImGui::End();
+
         window.draw(Grid_Background_sprite);
         window.draw(background);
         window.draw(player_sprite);
@@ -446,6 +501,8 @@ void Game::level1(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
 		window.draw(show_sprite);
 		window.draw(Weapon_sprite);
         window.draw(Attack_Button_sprite);
+        window.draw(Square_sprite);
+		window.draw(show_enemy);
 
 
         ImGui::SFML::Render(window);
@@ -464,12 +521,15 @@ void Game::level1(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
 
 }
 
-void Game::level2(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Witch_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite&Weapon_sprite, Sprite &Circle_sprite, Sprite &Attack_Button_sprite, GameState &currentstate, RectangleShape& background) {
+void Game::level2(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Witch_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite&Weapon_sprite, Sprite &Circle_sprite, Sprite &Square_sprite, Sprite &Attack_Button_sprite, GameState &currentstate, RectangleShape& background) {
     player_sprite.setPosition({ 570.f, 565.f });
     Witch_sprite.setPosition({ 570.f, 20.f });
     Sprite weapon_circle_sprite(Circle_sprite);
     weapon_circle_sprite.setScale({ 0.6f, 0.6f });
-    weapon_circle_sprite.setPosition({ 220.f, 650.f });
+    weapon_circle_sprite.setPosition({ 400.f, 650.f });
+    Sprite show_enemy(Witch_sprite);
+    show_enemy.setScale({ 0.09f, 0.09f });
+    show_enemy.setPosition({ 1035.f, 265.f });
     vector<vector<char>> grid(8, vector<char>(9, ' '));
     grid[7][4] = 'P';
     pair<int, int> player_position = { 7,4 };
@@ -580,6 +640,37 @@ void Game::level2(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
         ImGui::EndDisabled();
         ImGui::End();
 
+        ImVec4 barColor;
+        float hp = player->gethealth() / player->getmaxhealth();
+        if (hp > 0.6f)
+            barColor = ImVec4(0.0f, 1.0f, 0.0f, 0.7f);
+        else if (hp > 0.3f)
+            barColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+        else
+            barColor = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.38f / 2, window.getSize().y * 1.78f / 2));
+        ImGui::Begin("Player HP", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+        ImGui::Text("HP:");
+		ImGui::PushStyleColor(ImGuiCol_PlotHistogram, barColor);
+        ImGui::ProgressBar(hp, ImVec2(150.f, 20.f));
+		ImGui::PopStyleColor();
+        ImGui::End();
+
+        hp = enemy->gethealth() / enemy->getmaxHealth();
+        if (hp > 0.6f)
+            barColor = ImVec4(0.0f, 1.0f, 0.0f, 0.7f);
+        else if (hp > 0.3f)
+            barColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+        else
+            barColor = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 1.815f / 2, window.getSize().y * 0.67f / 2));
+        ImGui::Begin("Enemy HP", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+        ImGui::Text("HP:");
+        ImGui::PushStyleColor(ImGuiCol_PlotHistogram, barColor);
+        ImGui::ProgressBar(hp, ImVec2(100.f, 20.f));
+        ImGui::PopStyleColor();
+        ImGui::End();
+
         window.draw(Grid_Background_sprite);
         window.draw(background);
         window.draw(player_sprite);
@@ -589,6 +680,8 @@ void Game::level2(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
         window.draw(show_sprite);
         window.draw(Weapon_sprite);
         window.draw(Attack_Button_sprite);
+        window.draw(Square_sprite);
+        window.draw(show_enemy);
 
 
         ImGui::SFML::Render(window);

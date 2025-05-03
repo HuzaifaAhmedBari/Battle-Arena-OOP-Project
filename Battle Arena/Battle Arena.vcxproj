@@ -204,6 +204,7 @@
     <Image Include="Select_Weapon_Mage.jpg" />
     <Image Include="Select_Weapon_Warrior.jpg" />
     <Image Include="ShortBow.png" />
+    <Image Include="Square_PlaceHolder.png" />
     <Image Include="StartBackground.jpg" />
     <Image Include="Warrior.png" />
     <Image Include="Witch.png" />

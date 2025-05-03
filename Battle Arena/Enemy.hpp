@@ -20,13 +20,14 @@ class Enemy {
         string type;
         string weaponName;
         float health;
+        const float maxHealth;
         float damage;
         int specialUsesLeft = 2;
         int level = 1;
         int healsUsed = 0;
 
     public:
-    Enemy(string name, string type, string weaponName, float health, float damage, int level = 1) : name(name), type(type), weaponName(weaponName), health(health), damage(damage), level(level) {}
+    Enemy(string name, string type, string weaponName, float health, float damage, int level = 1) : name(name), type(type), weaponName(weaponName), health(health), damage(damage), level(level), maxHealth(health) {}
 
         virtual float attack(int py, int px, int ey, int ex);
         virtual void useSpecial(Character* target);
@@ -35,6 +36,8 @@ class Enemy {
         virtual void displayStats() const;
         virtual bool isAlive() const;
         void takeDamage(float damageTaken);
+        float gethealth() const;
+        float getmaxHealth() const;
 
         virtual void decideAction(Character* target) = 0;
 

@@ -130,6 +130,9 @@ void Character::sethealth(float health) {
     this->health = health;
 }
 
+float Character::getmaxhealth() const {
+	return maxhealth;
+}
 string Character::getname() const {
 	return name;
 }

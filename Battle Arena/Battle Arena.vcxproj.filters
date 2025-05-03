@@ -197,5 +197,8 @@
     <Image Include="Witch.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Square_PlaceHolder.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
