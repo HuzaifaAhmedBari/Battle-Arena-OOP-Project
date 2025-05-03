@@ -1,5 +1,6 @@
 #include "Game.hpp"
 
+
 void Game::run() {
 
     float scaleX, scaleY;
@@ -294,7 +295,7 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
     pair<int, int> player_position = { 7,4 };
     grid[0][5] = 'E';
     pair<int, int> enemy_position = { 0,4 };
-    Enemy* enemy = new Goblin();
+    Enemy* enemy = new Witch(); 
     Direction moving;
     Direction looking = Direction::Up;
     bool turn = true, attacked=false;

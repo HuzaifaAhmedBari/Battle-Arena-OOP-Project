@@ -7,4 +7,5 @@ public:
         : Enemy(name, "Witch", "Jadoo ki Chari", 80.f, 18.f) {}
 
     void decideAction(Character* target) override;
+	bool move(Sprite& goblin_sprite, vector<vector<char>>& grid, int& y, int& x, int& py, int& px) override;
 };

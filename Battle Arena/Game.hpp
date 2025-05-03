@@ -6,6 +6,7 @@
 #include "Player_Character.hpp"
 #include "Enemy.hpp"
 #include "Goblin.hpp"
+#include "Witch.hpp"
 #include "Weapon.hpp"
 #include "Archer.hpp"
 #include "Warrior.hpp"
