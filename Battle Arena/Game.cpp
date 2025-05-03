@@ -381,6 +381,7 @@ void Game::level1(RenderWindow& window, Character *player, Sprite& Grid_Backgrou
             attacked = true;
             turn = false;
         }
+        attacked = true;
 
         if (!turn && attacked)
         {
