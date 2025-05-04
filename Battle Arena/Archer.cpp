@@ -33,7 +33,9 @@ void Archer::healing() {
     }
 }
 
-
+string Archer::gettype() const {
+	return "Archer";
+}
 void Archer::movecharacter() {
     
 }

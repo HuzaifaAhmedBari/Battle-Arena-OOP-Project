@@ -35,6 +35,7 @@ class Character {
 		virtual void takeDamage(float damage);
 		virtual void useSpecialAbility();
 		virtual void healing();
+		virtual string gettype() const;
 		float attack(int py, int px, int ey, int ex, Direction look);
 		bool movecharacter(Sprite& player_sprite, Direction& movement, vector<vector<char>>& grid, int& y, int& x);
 		void useCurrentSpecialMove(Character* target);
@@ -45,9 +46,11 @@ class Character {
 		void updateStatus();
 		void sethealth(float health);
 		string getname() const;
+		string getweaponname() const;
 		float gethealth() const;
 		float getmaxhealth() const;
 		float getdamage() const;
+		float getrange() const;
 
 		virtual ~Character() {
 			delete weapon;

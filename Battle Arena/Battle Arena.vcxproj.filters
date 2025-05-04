@@ -200,5 +200,20 @@
     <Image Include="Square_PlaceHolder.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Arrow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Level_Complete.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Fire.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ice.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Slash.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

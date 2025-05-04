@@ -13,6 +13,7 @@ class Warrior : public Character {
 		void attackWithSpecialMove(Character &opponent);
 		void healing();
 		void moveCharacter();
+		string gettype() const;
 
 		~Warrior() override = default;
 };

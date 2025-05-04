@@ -31,7 +31,9 @@ void Mage::healing() {
     }
 }
 
-
+string Mage::gettype() const {
+	return "Mage";
+}
 void Mage::movecharacter() {
     
 

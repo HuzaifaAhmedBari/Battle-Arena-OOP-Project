@@ -11,7 +11,7 @@ bool Character::isAlive() const {
 float Character::attack(int py, int px, int ey, int ex, Direction look) {
 	return weapon->attack(py, px, ey, ex, look);
 }
-void Character::useCurrentSpecialMove(Character *target) {
+void Character::useCurrentSpecialMove(Character *target) { 
     /*if (!currentWeapon) {
         std::cout << "No weapon equipped.\n";
         return;
@@ -34,7 +34,7 @@ void Character::displayStats() const {
 void Character::useWeaponSpecialMove(Character* target) {
     if (!weapon || !weapon->canUseSpecial()) {
         std::cout << "Weapon 1's special move is not available.\n";
-        return;
+        return; 
     }
 
     weapon->useSpecialMove(target);
@@ -133,6 +133,12 @@ void Character::sethealth(float health) {
 float Character::getmaxhealth() const {
 	return maxhealth;
 }
+string Character::gettype() const {
+    return "Character";
+}
+string Character::getweaponname() const {
+    return weapon->getname();
+}
 string Character::getname() const {
 	return name;
 }
@@ -141,4 +147,7 @@ float Character::getdamage() const {
 }
 float Character::gethealth() const {
 	return health;
+}
+float Character::getrange() const {
+    return weapon->getrange();
 }

@@ -32,7 +32,9 @@ void Warrior::healing() {
     }
 }
 
-
+string Warrior::gettype() const {
+	return "Warrior";
+}
 void Warrior::moveCharacter() {
 
 }

@@ -14,6 +14,7 @@ class Archer : public Character {
 		void attackWithSpecialMove(Character& opponent);
 		void healing();
 		void movecharacter();
+		string gettype() const;
 		 
 
 		~Archer() override = default;
