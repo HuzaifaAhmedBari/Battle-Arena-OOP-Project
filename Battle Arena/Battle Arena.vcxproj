@@ -195,9 +195,11 @@
     <Image Include="Arrow.png" />
     <Image Include="Attack_Button.png" />
     <Image Include="Axe.png" />
+    <Image Include="Berserker.png" />
     <Image Include="Circle_PlaceHolders.png" />
     <Image Include="Fire.png" />
     <Image Include="FireStaff.png" />
+    <Image Include="Game_Finished.png" />
     <Image Include="Ice.png" />
     <Image Include="IceStaff.png" />
     <Image Include="Level_Complete.png" />
@@ -214,6 +216,12 @@
     <Image Include="StartBackground.jpg" />
     <Image Include="Warrior.png" />
     <Image Include="Witch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="button_click.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ost.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,9 +1,26 @@
 #include "Game.hpp"
 
+sf::SoundBuffer clickBuffer;
+sf::Sound clickSound(clickBuffer);
 
 void Game::run() {
 
     float scaleX, scaleY;
+
+    sf::Music music;
+    if (!music.openFromFile("ost.ogg")) {
+        std::cerr << "Error loading music file!" << std::endl;
+    }
+    music.setVolume(20);
+    music.play();
+    music.setLooping(true);
+
+    if (!clickBuffer.loadFromFile("button_click.wav"))
+    {
+		cout << "Error Loading the Sound" << endl;
+    }
+	clickSound.setBuffer(clickBuffer);
+    clickSound.setVolume(20.0f);
 
     Texture Start_BackGround_texture;
     if (!Start_BackGround_texture.loadFromFile("StartBackGround.jpg"))
@@ -34,6 +51,16 @@ void Game::run() {
     scaleX = 1200.f / Level_Failed_texture.getSize().x;
     scaleY = 800.f / Level_Failed_texture.getSize().y;
     Level_Failed_sprite.setScale({ scaleX, scaleY });
+
+    Texture Game_Finished_texture;
+    if (!Game_Finished_texture.loadFromFile("Game_Finished.png"))
+    {
+        cout << "Error Loading the Background" << endl;
+    }
+    Sprite Game_Finished_sprite(Game_Finished_texture);
+    scaleX = 1200.f / Game_Finished_texture.getSize().x;
+    scaleY = 800.f / Game_Finished_texture.getSize().y;
+    Game_Finished_sprite.setScale({ scaleX, scaleY });
 
     Texture Select_Character_texture;
     if (!Select_Character_texture.loadFromFile("Select_Character.jpg"))
@@ -208,6 +235,18 @@ void Game::run() {
     Witch_sprite.setScale({ scaleX, scaleY });
     Witch_sprite.setScale({ 0.11f, 0.11f });
     Witch_sprite.setPosition({ 700,250 });
+
+    Texture Berserker_texture;
+    if (!Berserker_texture.loadFromFile("Berserker.png"))
+    {
+        cout << "Error Loading the Background" << endl;
+    }
+    Sprite Berserker_sprite(Berserker_texture);
+    scaleX = 250.f / Berserker_texture.getSize().x;
+    scaleY = 350.f / Berserker_texture.getSize().y;
+    Berserker_sprite.setScale({ scaleX, scaleY });
+    Berserker_sprite.setScale({ 0.11f, 0.11f });
+    Berserker_sprite.setPosition({ 700,250 });
 
     Texture Slash_texture;
     if (!Slash_texture.loadFromFile("Slash.png"))
@@ -387,7 +426,7 @@ void Game::run() {
 			}
 			else
 			{
-				currentstate = Level5;
+				currentstate = Finished;
 			}
         }
     }
@@ -450,12 +489,12 @@ void Game::run() {
 	show_sprite.setScale({ 0.3f, 0.3f });
 	show_sprite.setPosition({ 30.f, 630.f });
 
-    Game::levels(window, player, Grid_Background_sprite, Level_Complete_sprite, Level_Failed_sprite, Goblin_sprite, Witch_sprite, player_sprite, show_sprite, Weapon_sprite, Animation_sprite, Circle_sprite, Square_sprite, Attack_Button_sprite, currentstate);
+    Game::levels(window, player, Grid_Background_sprite, Level_Complete_sprite, Level_Failed_sprite, Game_Finished_sprite, Goblin_sprite, Witch_sprite, Berserker_sprite, player_sprite, show_sprite, Weapon_sprite, Animation_sprite, Circle_sprite, Square_sprite, Attack_Button_sprite, currentstate);
     
     delete player;
 }
 
-void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Level_Complete_sprite, Sprite &Level_Failed_sprite, Sprite &Goblin_sprite, Sprite &Witch_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon_sprite, Sprite &Animation_sprite, Sprite &Circle_sprite, Sprite &Square_sprite, Sprite &Attack_Button_sprite, GameState &currentstate) {
+void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Background_sprite, Sprite &Level_Complete_sprite, Sprite &Level_Failed_sprite, Sprite &Game_finished_sprite, Sprite &Goblin_sprite, Sprite &Witch_sprite, Sprite &Berserker_sprite, Sprite &player_sprite, Sprite &show_sprite, Sprite &Weapon_sprite, Sprite &Animation_sprite, Sprite &Circle_sprite, Sprite &Square_sprite, Sprite &Attack_Button_sprite, GameState &currentstate) {
 	RectangleShape background(Vector2f(1200.f, 100.f));
 	background.setFillColor({38,33,27});
 	background.setPosition({0.f, 700.f});
@@ -529,9 +568,19 @@ void Game::levels(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
             }
             break;
         case Level4:
-			window.close();
-			return;
-        case Level5:
+            completed = Game::level4(window, player, Grid_Background_sprite, Witch_sprite, Goblin_sprite, Berserker_sprite, player_sprite, show_sprite, Weapon_sprite, Circle_sprite, Animation_sprite, Square_sprite, Attack_Button_sprite, currentstate, background);
+            if(!completed)
+            {
+                next = Game::Level_Failed(window, Level_Failed_sprite, player, currentstate);
+                if (!next)
+                {
+                    window.close();
+                    return;
+                }
+            }
+            break;
+		case Finished:
+			Game::Game_Finished(window, Game_finished_sprite);
 			window.close();
 			return;
         default:
@@ -613,6 +662,7 @@ bool Game::level1(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
                     }
 					else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
 					{
+                        clickSound.play();
                         float damage_taken = player->attack(player_position.first, player_position.second, enemy_position.first, enemy_position.second, looking);
                         enemy->takeDamage(damage_taken);
                         attacked = true;
@@ -644,6 +694,7 @@ bool Game::level1(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             float damage_taken = player->attack(player_position.first, player_position.second, enemy_position.first, enemy_position.second, looking);
             enemy->takeDamage(damage_taken);
             attacked = true;
@@ -856,6 +907,7 @@ bool Game::level2(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
                     }
                     else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
                     {
+                        clickSound.play();
                         float damage_taken = player->attack(player_position.first, player_position.second, enemy_position.first, enemy_position.second, looking);
                         enemy->takeDamage(damage_taken);
                         attacked = true;
@@ -887,6 +939,7 @@ bool Game::level2(RenderWindow &window, Character *player, Sprite &Grid_Backgrou
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             float damage_taken = player->attack(player_position.first, player_position.second, enemy_position.first, enemy_position.second, looking);
             enemy->takeDamage(damage_taken);
             attacked = true;
@@ -1105,6 +1158,7 @@ bool Game::level3(RenderWindow& window, Character* player, Sprite& Grid_Backgrou
                     }
                     else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
                     {
+                        clickSound.play();
                         float damage_taken = player->attack(player_position.first, player_position.second, enemy1_position.first, enemy1_position.second, looking);
                         enemy1->takeDamage(damage_taken);
                         damage_taken = player->attack(player_position.first, player_position.second, enemy2_position.first, enemy2_position.second, looking);
@@ -1138,6 +1192,7 @@ bool Game::level3(RenderWindow& window, Character* player, Sprite& Grid_Backgrou
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             float damage_taken = player->attack(player_position.first, player_position.second, enemy1_position.first, enemy1_position.second, looking);
             if(enemy1->isAlive())
                 enemy1->takeDamage(damage_taken);
@@ -1300,7 +1355,331 @@ bool Game::level3(RenderWindow& window, Character* player, Sprite& Grid_Backgrou
 
         if (!enemy1->isAlive() && !animating_player && !enemy2->isAlive())
         {
-            currentstate = Level3;
+            currentstate = Level4;
+            return true;
+        }
+        if (!player->isAlive())
+        {
+            return false;
+        }
+    }
+}
+
+bool Game::level4(RenderWindow& window, Character* player, Sprite& Grid_Background_sprite, Sprite& Witch_sprite, Sprite& Goblin_sprite, Sprite &Berserker_sprite, Sprite& player_sprite, Sprite& show_sprite, Sprite& Weapon_sprite, Sprite& Circle_sprite, Sprite& Animation_sprite, Sprite& Square_sprite, Sprite& Attack_Button_sprite, GameState& currentstate, RectangleShape& background) {
+    player_sprite.setPosition({ 570.f, 565.f });
+    Goblin_sprite.setPosition({ 395.f,28.f });
+    Witch_sprite.setPosition({ 750.f, 20.f });
+	Berserker_sprite.setPosition({ 570.f, 21.f });
+    Sprite weapon_circle_sprite(Circle_sprite);
+    weapon_circle_sprite.setScale({ 0.6f, 0.6f });
+    weapon_circle_sprite.setPosition({ 400.f, 650.f });
+    Sprite show_enemy(Witch_sprite);
+    show_enemy.setScale({ 0.09f, 0.09f });
+    show_enemy.setPosition({ 1035.f, 265.f });
+    Sprite show_enemy2(Goblin_sprite);
+    show_enemy2.setScale({ 0.09f, 0.09f });
+    show_enemy2.setPosition({ 1035.f, 340.f });
+    Sprite show_enemy3(Berserker_sprite);
+    show_enemy3.setScale({ 0.09f, 0.09f });
+    show_enemy3.setPosition({ 1030.f, 200.f });
+    Sprite Square2_sprite = Square_sprite;
+    Square2_sprite.setPosition({ 1018.f, 328.f });
+    Sprite Square3_sprite = Square_sprite;
+    Square3_sprite.setPosition({ 1018.f, 188.f });
+    vector<vector<char>> grid(8, vector<char>(9, ' '));
+    grid[7][4] = 'P';
+    pair<int, int> player_position = { 7,4 }, enemy2_position = { 0,2 }, enemy1_position{ 0,6 }, enemy3_position{ 0,4 };
+    grid[0][2] = 'E';
+	grid[0][4] = 'E';
+    grid[0][6] = 'E';
+    Enemy* enemy1 = new Witch(), * enemy2 = new Goblin(), *enemy3 = new Berserker();
+    Direction moving, looking = Direction::Up;
+    Vector2f animationStart, animationEnd;
+    Angle angle;
+    float animationTime, animationDuration = 0.007f;
+    bool turn = true, attacked = false, animating_player = false, animating_enemy = false, enemy_turn = false;
+
+    Clock deltaClock;
+    while (window.isOpen()) {
+        while (const auto event = window.pollEvent()) {
+            ImGui::SFML::ProcessEvent(window, *event);
+
+            if (event->is<sf::Event::Closed>()) {
+                window.close();
+            }
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
+            {
+                if (turn && !animating_player && !animating_enemy && !enemy_turn)
+                {
+                    if (keyPressed->scancode == sf::Keyboard::Scancode::W)
+                    {
+                        moving = Direction::Up;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::S)
+                    {
+                        moving = Direction::Down;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::A)
+                    {
+                        moving = Direction::Left;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::D)
+                    {
+                        moving = Direction::Right;
+                        turn = player->movecharacter(player_sprite, moving, grid, player_position.first, player_position.second);
+                    }
+                }
+                if (!attacked && !animating_player && !animating_enemy && !enemy_turn)
+                {
+                    if (keyPressed->scancode == sf::Keyboard::Scancode::Up)
+                    {
+                        looking = Direction::Up;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Down)
+                    {
+                        looking = Direction::Down;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Left)
+                    {
+                        looking = Direction::Left;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Right)
+                    {
+                        looking = Direction::Right;
+                    }
+                    else if (keyPressed->scancode == sf::Keyboard::Scancode::Enter)
+                    {
+                        clickSound.play();
+                        float damage_taken = player->attack(player_position.first, player_position.second, enemy1_position.first, enemy1_position.second, looking);
+                        enemy1->takeDamage(damage_taken);
+                        damage_taken = player->attack(player_position.first, player_position.second, enemy2_position.first, enemy2_position.second, looking);
+                        enemy2->takeDamage(damage_taken);
+                        damage_taken = player->attack(player_position.first, player_position.second, enemy3_position.first, enemy3_position.second, looking);
+                        enemy3->takeDamage(damage_taken);
+                        attacked = true;
+                        turn = false;
+                        animating_player = true;
+                    }
+                }
+            }
+
+        }
+
+        ImGui::SFML::Update(window, deltaClock.restart());
+        window.clear();
+
+        ImGuiStyle& style = ImGui::GetStyle();
+        style.FrameRounding = 10.0f;
+        style.FramePadding = ImVec2(15, 10);
+        style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
+        style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.1f);
+        style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.2f);
+
+        float buttonWidth = window.getSize().x * 0.18f;
+        float buttonHeight = window.getSize().y * 0.105f;
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.842f - buttonWidth / 2, window.getSize().y * 0.925f - buttonHeight / 2));
+        ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
+
+        ImGui::Begin("ATTACK", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+        ImGui::BeginDisabled(animating_player || animating_enemy || enemy_turn);
+
+        if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
+        {
+            clickSound.play();
+            float damage_taken = player->attack(player_position.first, player_position.second, enemy1_position.first, enemy1_position.second, looking);
+            if (enemy1->isAlive())
+                enemy1->takeDamage(damage_taken);
+            damage_taken = player->attack(player_position.first, player_position.second, enemy2_position.first, enemy2_position.second, looking);
+            if (enemy2->isAlive())
+                enemy2->takeDamage(damage_taken);
+            damage_taken = player->attack(player_position.first, player_position.second, enemy3_position.first, enemy3_position.second, looking);
+            if (enemy3->isAlive())
+                enemy3->takeDamage(damage_taken);
+            attacked = true;
+            turn = false;
+            animating_player = true;
+        }
+
+        ImGui::EndDisabled();
+        ImGui::End();
+
+        if (!turn && enemy_turn && !animating_player && !animating_enemy)
+        {
+            if (enemy1->isAlive())
+            {
+                turn = enemy1->move(Witch_sprite, grid, enemy1_position.first, enemy1_position.second, player_position.first, player_position.second);
+                float damageTaken = enemy1->attack(player_position.first, player_position.second, enemy1_position.first, enemy1_position.second);
+                player->takeDamage(damageTaken);
+            }
+            if (enemy2->isAlive())
+            {
+                turn = enemy2->move(Goblin_sprite, grid, enemy2_position.first, enemy2_position.second, player_position.first, player_position.second);
+                float damageTaken = enemy2->attack(player_position.first, player_position.second, enemy2_position.first, enemy2_position.second);
+                player->takeDamage(damageTaken);
+            }
+            if (enemy3->isAlive())
+            {
+                turn = enemy3->move(Berserker_sprite, grid, enemy3_position.first, enemy3_position.second, player_position.first, player_position.second);
+                float damageTaken = enemy2->attack(player_position.first, player_position.second, enemy3_position.first, enemy3_position.second);
+                player->takeDamage(damageTaken);
+            }
+            attacked = false;
+            enemy_turn = false;
+        }
+
+        if (attacked)
+        {
+            sf::Vector2f playerPos = player_sprite.getPosition();
+
+            sf::Vector2f direction;
+            int tileSize = 64;
+
+            switch (looking)
+            {
+            case Direction::Up:
+                direction = { 0, -1 };
+                playerPos.x += 10;
+                angle = degrees(270);
+                break;
+            case Direction::Down:
+                direction = { 0, 1 };
+                playerPos.x += 40;
+                angle = degrees(90);
+                break;
+            case Direction::Left:
+                direction = { -1, 0 };
+                playerPos.y += 50;
+                angle = degrees(180);
+                break;
+            case Direction::Right:
+                direction = { 1, 0 };
+                playerPos.y += 40;
+                playerPos.x += 40;
+                angle = degrees(0);
+                break;
+            }
+
+            Animation_sprite.setRotation(angle);
+            animationStart = playerPos;
+            animationEnd = playerPos + direction * (float)(tileSize * player->getrange());
+            Animation_sprite.setPosition(animationStart);
+
+            animationTime = 0.f;
+            animating_player = true;
+
+            attacked = false;
+        }
+        if (animating_player)
+        {
+            animationTime += deltaClock.restart().asSeconds();
+            float t = min(animationTime / animationDuration, 1.f);
+
+            sf::Vector2f currentPos = animationStart + (animationEnd - animationStart) * t;
+            Animation_sprite.setPosition(currentPos);
+
+            if (t >= 1.f)
+            {
+                animating_player = false;
+                enemy_turn = true;
+            }
+
+        }
+
+        ImVec4 barColor;
+        float hp = player->gethealth() / player->getmaxhealth();
+        if (hp > 0.6f)
+            barColor = ImVec4(0.0f, 1.0f, 0.0f, 0.7f);
+        else if (hp > 0.3f)
+            barColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+        else
+            barColor = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.38f / 2, window.getSize().y * 1.78f / 2));
+        ImGui::Begin("Player HP", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+        ImGui::Text("HP:");
+        ImGui::PushStyleColor(ImGuiCol_PlotHistogram, barColor);
+        ImGui::ProgressBar(hp, ImVec2(150.f, 20.f));
+        ImGui::PopStyleColor();
+        ImGui::End();
+
+        hp = enemy1->gethealth() / enemy1->getmaxHealth();
+        if (hp > 0.6f)
+            barColor = ImVec4(0.0f, 1.0f, 0.0f, 0.7f);
+        else if (hp > 0.3f)
+            barColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+        else
+            barColor = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 1.815f / 2, window.getSize().y * 0.67f / 2));
+        ImGui::Begin("Enemy_1 HP", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+        ImGui::Text("HP:");
+        ImGui::PushStyleColor(ImGuiCol_PlotHistogram, barColor);
+        ImGui::ProgressBar(hp, ImVec2(100.f, 20.f));
+        ImGui::PopStyleColor();
+        ImGui::End();
+
+        hp = enemy2->gethealth() / enemy2->getmaxHealth();
+        if (hp > 0.6f)
+            barColor = ImVec4(0.0f, 1.0f, 0.0f, 0.7f);
+        else if (hp > 0.3f)
+            barColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+        else
+            barColor = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 1.815f / 2, window.getSize().y * 0.85f / 2));
+        ImGui::Begin("Enemy_2 HP", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+        ImGui::Text("HP:");
+        ImGui::PushStyleColor(ImGuiCol_PlotHistogram, barColor);
+        ImGui::ProgressBar(hp, ImVec2(100.f, 20.f));
+        ImGui::PopStyleColor();
+        ImGui::End();
+
+        hp = enemy3->gethealth() / enemy3->getmaxHealth();
+        if (hp > 0.6f)
+            barColor = ImVec4(0.0f, 1.0f, 0.0f, 0.7f);
+        else if (hp > 0.3f)
+            barColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+        else
+            barColor = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 1.815f / 2, window.getSize().y * 0.48f / 2));
+        ImGui::Begin("Enemy_3 HP", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground);
+        ImGui::Text("HP:");
+        ImGui::PushStyleColor(ImGuiCol_PlotHistogram, barColor);
+        ImGui::ProgressBar(hp, ImVec2(100.f, 20.f));
+        ImGui::PopStyleColor();
+        ImGui::End();
+
+
+        window.draw(Grid_Background_sprite);
+        window.draw(background);
+        window.draw(player_sprite);
+        if (enemy1->isAlive())
+            window.draw(Witch_sprite);
+        if (enemy2->isAlive())
+            window.draw(Goblin_sprite);
+        if(enemy3->isAlive())
+			window.draw(Berserker_sprite);
+        window.draw(Circle_sprite);
+        window.draw(weapon_circle_sprite);
+        window.draw(show_sprite);
+        window.draw(Weapon_sprite);
+        window.draw(Attack_Button_sprite);
+        window.draw(Square_sprite);
+        window.draw(Square2_sprite);
+		window.draw(Square3_sprite);
+        window.draw(show_enemy);
+        window.draw(show_enemy2);
+        window.draw(show_enemy3);
+        if (animating_player)
+            window.draw(Animation_sprite);
+
+
+        ImGui::SFML::Render(window);
+        window.display();
+
+        if (!enemy1->isAlive() && !animating_player && !enemy2->isAlive() && !enemy3->isAlive())
+        {
+            currentstate = Finished;
             return true;
         }
         if (!player->isAlive())
@@ -1343,6 +1722,7 @@ bool Game::Level_Complete(RenderWindow& window, Sprite& Level_Complete_sprite, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             next = true;
         }
 
@@ -1357,6 +1737,7 @@ bool Game::Level_Complete(RenderWindow& window, Sprite& Level_Complete_sprite, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             ofstream file("Save.txt", ios::out | ios::trunc);
 			if (file.is_open())
 			{
@@ -1370,8 +1751,8 @@ bool Game::Level_Complete(RenderWindow& window, Sprite& Level_Complete_sprite, C
 					file << "Level3" << endl;
 				else if (currentstate == Level4)
 					file << "Level4" << endl;
-				else if (currentstate == Level5)
-					file << "Level5" << endl;
+				else if (currentstate == Finished)
+					file << "Finished" << endl;
 				file.close();
 			}
             exit = true;
@@ -1423,6 +1804,7 @@ bool Game::Level_Failed(RenderWindow &window, Sprite &Level_Failed_sprite, Chara
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             next = true;
         }
 
@@ -1437,6 +1819,7 @@ bool Game::Level_Failed(RenderWindow &window, Sprite &Level_Failed_sprite, Chara
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             ofstream file("Save.txt", ios::out | ios::trunc);
             if (file.is_open())
             {
@@ -1450,8 +1833,8 @@ bool Game::Level_Failed(RenderWindow &window, Sprite &Level_Failed_sprite, Chara
                     file << "Level3" << endl;
                 else if (currentstate == Level4)
                     file << "Level4" << endl;
-                else if (currentstate == Level5)
-                    file << "Level5" << endl;
+                else if (currentstate == Finished)
+                    file << "Finished" << endl;
                 file.close();
             }
             exit = true;
@@ -1467,6 +1850,53 @@ bool Game::Level_Failed(RenderWindow &window, Sprite &Level_Failed_sprite, Chara
             return true;
         if (exit)
             return false;
+    }
+}
+
+void Game::Game_Finished(RenderWindow& window, Sprite& Game_Finished_sprite) {
+    bool exit = false;
+    Clock deltaClock;
+    while (window.isOpen()) {
+        while (const auto event = window.pollEvent()) {
+            ImGui::SFML::ProcessEvent(window, *event);
+
+            if (event->is<sf::Event::Closed>()) {
+                window.close();
+            }
+        }
+
+        ImGui::SFML::Update(window, deltaClock.restart());
+        window.clear();
+
+        ImGuiStyle& style = ImGui::GetStyle();
+        style.FrameRounding = 40.0f;
+        style.FramePadding = ImVec2(15, 10);
+        style.Colors[ImGuiCol_Button] = ImVec4(0, 0, 0, 0);
+        style.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.f, 1.f, 1.f, 0.1f);
+        style.Colors[ImGuiCol_ButtonActive] = ImVec4(1.f, 1.f, 1.f, 0.2f);
+
+        float buttonWidth = window.getSize().x * 0.5f;
+        float buttonHeight = window.getSize().y * 0.372f;
+        ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.476f - buttonWidth / 2, window.getSize().y * 0.614f - buttonHeight / 2));
+        ImGui::SetNextWindowSize(ImVec2(buttonWidth + 50, buttonHeight + 50));
+
+
+        ImGui::Begin("EXIT", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoScrollbar);
+
+        if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
+        {
+            clickSound.play();
+            exit = true;
+        }
+
+        ImGui::End();
+
+		window.draw(Game_Finished_sprite);
+        ImGui::SFML::Render(window);
+        window.display();
+
+        if (exit)
+            window.close();
     }
 }
 
@@ -1528,6 +1958,7 @@ void Game::start_screen(RenderWindow &window,GameState &currentstate, Sprite &St
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
+        clickSound.play();
         currentstate = SelectCharacter;
     }
 
@@ -1543,6 +1974,7 @@ void Game::start_screen(RenderWindow &window,GameState &currentstate, Sprite &St
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
+        clickSound.play();
 		ifstream file("Save.txt");
 		if (file.is_open())
             currentstate = Continue;
@@ -1585,6 +2017,7 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
+        clickSound.play();
         currentstate = SelectWeapon;
     }
 
@@ -1600,6 +2033,7 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
+        clickSound.play();
         currentcharacter = Archer_character;
 		currentweapon = ShortBow_weapon;
     }
@@ -1616,6 +2050,7 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
+        clickSound.play();
         currentcharacter = Warrior_character;
 		currentweapon = Axe_weapon;
     }
@@ -1631,6 +2066,7 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
+        clickSound.play();
         currentcharacter = Mage_character;
 		currentweapon = IceStaff_weapon;
     }
@@ -1646,6 +2082,7 @@ void Game::select_character_screen(RenderWindow &window, GameState &currentstate
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
+        clickSound.play();
         currentstate = Start;
     }
 
@@ -1709,6 +2146,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
+        clickSound.play();
         currentstate = Level1;
     }
 
@@ -1726,6 +2164,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             currentweapon = ShortBow_weapon;
         }
 
@@ -1741,6 +2180,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             currentweapon = LongBow_weapon;
         }
 
@@ -1757,6 +2197,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             currentweapon = Axe_weapon;
         }
 
@@ -1772,6 +2213,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             currentweapon = Sword_weapon;
         }
 
@@ -1788,6 +2230,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             currentweapon = IceStaff_weapon;
         }
 
@@ -1803,6 +2246,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
         if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
         {
+            clickSound.play();
             currentweapon = FireStaff_weapon;
         }
 
@@ -1818,6 +2262,7 @@ void Game::select_weapon_screen(RenderWindow &window, GameState &currentstate, C
 
     if (ImGui::Button(" ", { buttonWidth,buttonHeight }))
     {
+        clickSound.play();
         currentstate = SelectCharacter;
     }
 

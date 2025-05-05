@@ -218,5 +218,21 @@
     <Image Include="Level_Failed.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Berserker.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Game_Finished.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="button_click.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ost.ogg">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

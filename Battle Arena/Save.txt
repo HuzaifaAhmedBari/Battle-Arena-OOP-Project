@@ -1,1 +1,1 @@
-Archer;Long_Bow;Level3
+Archer;Long_Bow;Level4
