@@ -1,1 +1,1 @@
-Warrior;Axe;Level2
+Archer;Long_Bow;Level3

@@ -201,6 +201,7 @@
     <Image Include="Ice.png" />
     <Image Include="IceStaff.png" />
     <Image Include="Level_Complete.png" />
+    <Image Include="Level_Failed.png" />
     <Image Include="LongBow.png" />
     <Image Include="Mage.png" />
     <Image Include="Select_Character.jpg" />

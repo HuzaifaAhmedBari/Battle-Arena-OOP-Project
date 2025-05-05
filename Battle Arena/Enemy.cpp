@@ -6,6 +6,7 @@ float Enemy::attack(int py, int px, int ey, int ex) {
 
 void Enemy::takeDamage(float damageTaken) {
     health = health - damageTaken;
+	health = max(0.f, health);
 }
 
 void Enemy::useSpecial(Character* target) {

@@ -215,5 +215,8 @@
     <Image Include="Slash.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Level_Failed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
